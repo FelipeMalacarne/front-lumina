@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <ThemeProvider defaultTheme="light" storageKey="theme">
+            <ThemeProvider storageKey="theme">
                 <body
                     className={cn(
                         "min-h-screen bg-background font-sans antialiased",

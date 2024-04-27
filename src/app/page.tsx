@@ -16,16 +16,16 @@ export default function Home() {
         <>
             <Navbar />
             <MaxWidthWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
-                <div className="mx-auto mv-4 max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-gray-200 bg-white px-7 py-2 shadow-md backdrop-blur transition-all hover:border-gray-300 hover:bg-white/50">
-                    <p className="text-sm font-semibold text-gray-700">
+                <div className="mx-auto mv-4 max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-border bg-background px-7 py-2 shadow-md backdrop-blur transition-all hover:border-border/25 hover:bg-background/50">
+                    <p className="text-sm font-semibold text-card-foreground bg-card">
                         Lumina is now public!
                     </p>
                 </div>
                 <h1 className="max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl mt-5">
-                    Manage your <span className="text-blue-500">finance</span> in one
+                    Manage your <span className="text-primary">finance</span> in one
                     place.
                 </h1>
-                <p className="mt-5 max-w-prose text-zinc-700 sm:text-lg">
+                <p className="mt-5 max-w-prose text-foreground/70 sm:text-lg">
                     Lumina is a personal finance app that helps you manage your money,
                     track your spending, and achieve your financial goals.
                 </p>
@@ -36,9 +36,6 @@ export default function Home() {
                         className: "mt-5",
                     })}
                     href={'/register'}
-
-
-
                     target="_blank"
                 >
                     Get started{" "}
@@ -65,7 +62,7 @@ export default function Home() {
                     <div>
                         <div className="mx-auto max-w-6xl px-6 lg:px-8">
                             <div className="mt-16 flow-root sm:mt-24">
-                                <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+                                <div className="-m-2 rounded-xl bg-card p-2 ring-1 ring-inset ring-ring/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                                     {/* <Image
                     src={"/preview.png"}
                     alt={"Veil dashboard"}
@@ -80,9 +77,12 @@ export default function Home() {
                                     <Image
                                         src={previewImage}
                                         alt="Lumina dashboard"
+                                        layout="responsive"
+                                        objectFit="cover"
+                                        objectPosition="center"
                                         width={1364}
                                         height={866}
-                                        className="rounded-md bg-white p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-gray-900/10"
+                                        className="rounded-md bg-background p-2 sm:p-8 md:p-20 shadow-2xl ring-1 ring-ring/10"
                                     />
                                 </div>
                             </div>
@@ -107,10 +107,10 @@ export default function Home() {
             <div className="mx-auto mb-32 mt-32 max-w-5xl sm:mt-56">
                 <div className="mb-12 px-6 lg:px-8">
                     <div className="mx-auto max-w-2xl sm:text-center">
-                        <h2 className="mt-2 font-bold text-4xl text-gray-900 sm:text-5xl">
+                        <h2 className="mt-2 font-bold text-4xl text-foreground sm:text-5xl">
                             Start managing your money today.
                         </h2>
-                        <p className="mt-4 text-lg text-gray-600">
+                        <p className="mt-4 text-lg text-foreground/70">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
                             aspernatur est impedit, perferendis distinctio repellendus, error
                             omnis, doloribus expedita quam vel vitae mollitia inventore
@@ -121,29 +121,29 @@ export default function Home() {
                 {/* steps */}
                 <ol className="my-8 space-y-4 pt-8 md:flex md:space-x-12 md:space-y-0">
                     <li className="md:flex-1">
-                        <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
-                            <span className="text-sm font-medium text-blue-600">Step 1</span>
+                        <div className="flex flex-col space-y-2 border-l-4 border-border/80 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
+                            <span className="text-sm font-medium text-primary">Step 1</span>
                             <span className="text-xl font-semibold">
                                 Sign up for an account
                             </span>
-                            <span className="mt-2 text-zinc-700">
+                            <span className="mt-2 text-foreground/70">
                                 Either starting out with a free plan or choose our{" "}
-                                <a href="pricing" className="text-blue-700 underline-offset-2">
+                                <Link href="pricing" className="text-primary underline-offset-2">
                                     pro plan
-                                </a>
+                                </Link>
                                 .
                             </span>
                         </div>
                     </li>
                     <li className="md:flex-1">
-                        <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
-                            <span className="text-sm font-medium text-blue-600">Step 2</span>
+                        <div className="flex flex-col space-y-2 border-l-4 border-border/80 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
+                            <span className="text-sm font-medium text-primary">Step 2</span>
                             <span className="text-xl font-semibold">
                                 Upload your ofx files
                             </span>
-                            <span className="mt-2 text-zinc-700">
+                            <span className="mt-2 text-foreground/70">
                                 We&apos;ll automatically process your{" "}
-                                <a href="pricing" className="text-blue-700 underline-offset-2">
+                                <a href="pricing" className="text-primary underline-offset-2">
                                     pro plan
                                 </a>
                                 .
@@ -151,13 +151,13 @@ export default function Home() {
                         </div>
                     </li>
                     <li className="md:flex-1">
-                        <div className="flex flex-col space-y-2 border-l-4 border-zinc-300 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
+                        <div className="flex flex-col space-y-2 border-l-4 border-border/80 py-2 pl-4 md:border-l-0 md:border-t-2 md:pb-0 md:pl-0 md:pt-4">
                             <span className="text-sm font-medium text-blue-600">Step 3</span>
                             <span className="text-xl font-semibold">
                                 Start managing your money
                             </span>
-                            <span className="mt-2 text-zinc-700">
-                                It&apos;s that simple! Try out Veil today.
+                            <span className="mt-2 text-foreground/70">
+                                It&apos;s that simple! Try out Lumina today.
                             </span>
                         </div>
                     </li>
@@ -165,7 +165,7 @@ export default function Home() {
 
                 <div className="mx-auto max-w-6xl px-6 lg:px-8">
                     <div className="mt-16 flow-root sm:mt-24">
-                        <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+                        <div className="-m-2 rounded-xl bg-card p-2 ring-1 ring-inset ring-ring/10 lg:-m-4 lg:rounded-2xl lg:p-4">
                             {/* <Image
                 src={"/file-upload-preview.jpg"}
                 alt={"Upload file upload preview"}
