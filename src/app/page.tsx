@@ -14,7 +14,6 @@ export const metadata = {
 export default function Home() {
     return (
         <>
-            <Navbar />
             <MaxWidthWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
                 <div className="mx-auto mv-4 max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-border bg-background px-7 py-2 shadow-md backdrop-blur transition-all hover:border-border/25 hover:bg-background/50">
                     <p className="text-sm font-semibold text-card-foreground bg-card">

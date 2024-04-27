@@ -1,14 +1,9 @@
 'use client'
 
 import { useAuth } from '@/hooks/auth'
-import Loading from './loading'
+import Loading from '../../components/loading'
 
-const AppLayout = ({
-    children,
-}:
-    Readonly<{
-        children: React.ReactNode
-    }>
+const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>
 ) => {
     const { user } = useAuth({ middleware: 'auth' })
 
@@ -17,7 +12,7 @@ const AppLayout = ({
     }
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-background">
             {/* <Navigation user={user} /> */}
 
             <main>{children}</main>

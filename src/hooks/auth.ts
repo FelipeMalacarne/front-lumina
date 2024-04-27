@@ -136,14 +136,14 @@ export const useAuth = ({ middleware }: { middleware: 'auth' | 'guest', }): Auth
     useEffect(() => {
 
         if (middleware === 'auth' && !user && !error) {
-            router.push('/login')
+            router.push('/authentication')
         }
         if (middleware === 'guest' && user && !error) {
-            router.push('/')
+            router.push('/dashboard')
         }
 
         if (window.location.pathname === '/verify-email' && user?.email_verified_at) {
-            router.push('/')
+            router.push('/dashboard')
         }
 
         if (middleware === 'auth' && error) logout()
