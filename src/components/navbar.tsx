@@ -1,5 +1,6 @@
 import { buttonVariants } from "@/components/ui/button";
 import MaxWidthWrapper from "./max-width-wrapper";
+import { ModeToggle } from "./mode-toggle";
 
 const Navbar = () => {
     return (
@@ -24,6 +25,7 @@ const Navbar = () => {
                                 Pricing
                             </a>
                         </>
+                        <ModeToggle />
                     </div>
                 </div>
             </MaxWidthWrapper>

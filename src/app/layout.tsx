@@ -21,17 +21,20 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <ThemeProvider storageKey="theme">
-                <body
-                    className={cn(
-                        "min-h-screen bg-background font-sans antialiased",
-                        fontSans.variable
-                    )}
-                >
+            <body className={cn(
+                "min-h-screen bg-background font-sans antialiased",
+                fontSans.variable
+            )} >
 
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                // disableTransitionOnChange
+                >
                     {children}
-                </body>
-            </ThemeProvider>
+                </ThemeProvider>
+            </body>
         </html >
     );
 }
