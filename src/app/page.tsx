@@ -34,7 +34,7 @@ export default function Home() {
                         size: "lg",
                         className: "mt-5",
                     })}
-                    href={'/register'}
+                    href={'/authentication'}
                     target="_blank"
                 >
                     Get started{" "}
