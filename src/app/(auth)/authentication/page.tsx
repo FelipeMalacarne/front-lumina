@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import UserAuthForm from "./components/user-auth-form";
 import { useState } from "react";
+import { ModeToggle } from "@/components/mode-toggle";
 
 // export const metadata = {
 //     title: "Authentication",
@@ -15,17 +16,17 @@ export default function AuthenticationPage() {
     return (
         <>
             <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-                <Button
-                    variant="ghost"
-                    className={cn(
-                        // buttonVariants({ variant: "ghost" }),
-                        "hidden md:block absolute right-4 top-4 md:right-8 md:top-8"
-                    )}
-                    onClick={() => setFormType(
-                        (prev) => (prev === 'login' ? 'register' : 'login'))
-                    }>
-                    {formType === 'login' ? "Sign In" : "Sign Up"}
-                </Button>
+
+                <div className="hidden md:flex absolute right-4 top-4 md:right-8 md:top-8">
+                    <Button
+                        variant="ghost"
+                        onClick={() => setFormType((prev) => (prev === 'login' ? 'register' : 'login'))
+                        }>
+                        {formType === 'login' ? "Don't Have an Account?" : "Already Have an Account?"}
+                    </Button>
+
+                    <ModeToggle className="ml-4" />
+                </div>
                 <div className="relative hidden h-full flex-col bg-muted p-10 text-primary-foreground lg:flex dark:border-r">
                     <div className="absolute inset-0 bg-primary" />
                     <div className="relative z-20 flex items-center text-lg font-medium">
@@ -90,6 +91,22 @@ export default function AuthenticationPage() {
                         </div>
 
                         <UserAuthForm formType={formType} />
+
+                        <p className="px-8 text-center text-sm text-muted-foreground md:hidden">
+
+                            {formType === 'register'
+                                ? "Already have an account? "
+                                : "Don't have an account? "
+                            }
+                            <a
+                                className="underline underline-offset-4 text-primary hover:text-primary/80"
+                                onClick={() => setFormType((prev) => (prev === 'login' ? 'register' : 'login'))
+                                }>
+                                {formType === 'login' ? "Sign Up" : "Sign In"}
+                            </a>
+
+                        </p>
+
 
                         <p className="px-8 text-center text-sm text-muted-foreground">
                             By clicking continue, you agree to our{" "}
