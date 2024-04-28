@@ -1,14 +1,17 @@
-
-import { Button, buttonVariants } from "@/components/ui/button";
+'use client'
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import UserAuthForm from "./components/user-auth-form";
+import { useState } from "react";
 
-export const metadata = {
-    title: "Authentication",
-    description: "Authentication page",
-}
+// export const metadata = {
+//     title: "Authentication",
+//     description: "Authentication page",
+// }
 
 export default function AuthenticationPage() {
+    const [formType, setFormType] = useState<'login' | 'register'>('login')
+
     return (
         <>
             <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
@@ -18,8 +21,10 @@ export default function AuthenticationPage() {
                         // buttonVariants({ variant: "ghost" }),
                         "hidden md:block absolute right-4 top-4 md:right-8 md:top-8"
                     )}
-                >
-                    Login
+                    onClick={() => setFormType(
+                        (prev) => (prev === 'login' ? 'register' : 'login'))
+                    }>
+                    {formType === 'login' ? "Sign In" : "Sign Up"}
                 </Button>
                 <div className="relative hidden h-full flex-col bg-muted p-10 text-primary-foreground lg:flex dark:border-r">
                     <div className="absolute inset-0 bg-primary" />
@@ -71,13 +76,20 @@ export default function AuthenticationPage() {
                             </span>
 
                             <h1 className="text-2xl font-semibold tracking-tight">
-                                Create an account
+                                {formType === 'register'
+                                    ? "Create an account"
+                                    : "Sign in"
+                                }
                             </h1>
                             <p className="text-sm text-muted-foreground">
-                                Enter your email below to create your account
+                                {formType === 'register'
+                                    ? "Enter your email below to create your account"
+                                    : "Enter your email below to sign in"
+                                }
                             </p>
                         </div>
-                        <UserAuthForm />
+
+                        <UserAuthForm formType={formType} />
 
                         <p className="px-8 text-center text-sm text-muted-foreground">
                             By clicking continue, you agree to our{" "}
