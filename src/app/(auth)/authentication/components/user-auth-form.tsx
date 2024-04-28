@@ -1,10 +1,7 @@
 'use client'
 import { Icons } from "@/components/icons"
-import { ModeToggle } from "@/components/mode-toggle"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-import { Label } from "@radix-ui/react-label"
 import { useState } from "react"
 import LoginForm from "./login-form"
 import RegisterForm from "./register-form"

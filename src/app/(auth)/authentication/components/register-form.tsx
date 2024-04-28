@@ -1,8 +1,10 @@
 'use client'
+import InputError from "@/components/InputError"
 import { Icons } from "@/components/icons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useAuth } from "@/hooks/auth"
+import { Errors } from "@/lib/types"
 import { Label } from "@radix-ui/react-label"
 import { useState } from "react"
 
@@ -13,7 +15,7 @@ interface RegisterFormProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function RegisterForm({ className, ...props }: RegisterFormProps) {
     const { register } = useAuth({ middleware: 'guest' })
-    const [errors, setErrors] = useState<Record<string, string>>({})
+    const [errors, setErrors] = useState<Errors>({})
     const [credentials, setCredentials] = useState({
         email: '',
         name: '',
@@ -21,20 +23,11 @@ export default function RegisterForm({ className, ...props }: RegisterFormProps)
         password_confirmation: '',
     })
 
-
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
         props.setIsLoading(true)
 
-
-        try {
-            console.log(credentials)
-            register({ credentials, setErrors })
-            console.log(errors)
-        } catch (error) {
-            console.log(errors)
-            console.error(error)
-        }
+        await register({ credentials, setErrors })
 
         props.setIsLoading(false)
     }
@@ -54,7 +47,9 @@ export default function RegisterForm({ className, ...props }: RegisterFormProps)
                         autoCorrect="off"
                         disabled={props.isLoading}
                         onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+                        className={errors.email ? 'border-destructive' : ''}
                     />
+                    <InputError messages={errors.email} className="mb-1" />
 
                     <Label className="sr-only" htmlFor="Name">
                         Name
@@ -67,7 +62,9 @@ export default function RegisterForm({ className, ...props }: RegisterFormProps)
                         autoComplete="name"
                         disabled={props.isLoading}
                         onChange={(e) => setCredentials({ ...credentials, name: e.target.value })}
+                        className={errors.name ? 'border-destructive' : ''}
                     />
+                    <InputError messages={errors.name} className="mb-1" />
 
 
                     <Label className="sr-only" htmlFor="password">
@@ -80,7 +77,9 @@ export default function RegisterForm({ className, ...props }: RegisterFormProps)
                         autoComplete="current-password"
                         disabled={props.isLoading}
                         onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+                        className={errors.password ? 'border-destructive' : ''}
                     />
+                    <InputError messages={errors.password} className="mb-2" />
 
                     <Label className="sr-only" htmlFor="password">
                         Password Confirmation
@@ -91,9 +90,11 @@ export default function RegisterForm({ className, ...props }: RegisterFormProps)
                         type="password"
                         disabled={props.isLoading}
                         onChange={(e) => setCredentials({ ...credentials, password_confirmation: e.target.value })}
+                        className={errors.password_confirmation ? 'border-destructive' : ''}
                     />
+                    <InputError messages={errors.password_confirmation} className="mb-2" />
                 </div>
-                <Button onClick={onSubmit} disabled={props.isLoading}>
+                <Button onClick={onSubmit} disabled={props.isLoading} className="mt-3">
                     {props.isLoading && (
                         <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                     )}
