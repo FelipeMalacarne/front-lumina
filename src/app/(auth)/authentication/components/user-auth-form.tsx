@@ -10,12 +10,12 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
     formType?: 'login' | 'register'
 }
 
-export default function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+export default function UserAuthForm({ className, formType, ...props }: UserAuthFormProps) {
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     return (
         <div className={cn("grid gap-6", className)} {...props}>
-            {props.formType === 'register'
+            {formType === 'register'
                 ? <RegisterForm isLoading={isLoading} setIsLoading={setIsLoading} />
                 : <LoginForm isLoading={isLoading} setIsLoading={setIsLoading} />
             }
