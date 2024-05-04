@@ -2,7 +2,7 @@ import { buttonVariants } from "@/components/ui/button";
 import MaxWidthWrapper from "./max-width-wrapper";
 import { ModeToggle } from "./mode-toggle";
 
-const Navbar = () => {
+const LandingNavigation = () => {
     return (
         <nav className="sticky h-14 inset-x-0 top-0 z-30 w-full border-b border-border bg-card backdrop-blur-lg transition-all">
             <MaxWidthWrapper>
@@ -33,4 +33,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default LandingNavigation;
