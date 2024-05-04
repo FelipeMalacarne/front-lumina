@@ -1,17 +1,23 @@
+import { buttonVariants } from "@/components/ui/button"
+import Link from "next/link"
+
 const NotFoundPage = () => {
     return (
-        <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-            <div className="max-w-xl mx-auto sm:px-6 lg:px-8">
-                <div className="flex items-center pt-8 sm:justify-start sm:pt-0">
-                    <div className="px-4 text-lg text-gray-500 border-r border-gray-400 tracking-wider">
-                        404
-                    </div>
-
-                    <div className="ml-4 text-lg text-gray-500 uppercase tracking-wider">
-                        Not Found
-                    </div>
-                </div>
+        <div className="flex h-[100dvh] flex-col items-center justify-center gap-6 bg-background px-4 ">
+            <div className="space-y-2 text-center">
+                <h1 className="text-9xl font-bold tracking-tighter text-foreground">404</h1>
+                <p className="text-lg text-foreground">
+                    Opa, a página que você está procurando não existe.
+                </p>
             </div>
+            <Link
+                className={
+                    buttonVariants({ variant: 'outline' })
+                }
+                href="/dashboard"
+            >
+                Back to Dashboard
+            </Link>
         </div>
     )
 }

@@ -6,7 +6,7 @@ import Navbar from '@/components/navigation/nav-bar'
 
 const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>
 ) => {
-    const { user } = useAuth({ middleware: 'auth' })
+    const { user, logout } = useAuth({ middleware: 'auth' })
 
     if (!user) {
         return <Loading />
@@ -14,7 +14,7 @@ const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>
 
     return (
         <div className="min-h-screen bg-background">
-            <Navbar />
+            <Navbar user={user} logout={logout} />
             <main>{children}</main>
         </div>
     )

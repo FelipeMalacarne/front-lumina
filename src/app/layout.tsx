@@ -23,7 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                     enableSystem
                 // disableTransitionOnChange
                 >
-                    <div className="relative flex min-h-screen flex-col bg-background">
+                    <div className="relative flex min-h-screen flex-col">
                         {children}
                     </div>
                 </ThemeProvider>
