@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/hooks/auth'
 import Loading from '../../components/loading'
+import Navbar from '@/components/navigation/nav-bar'
 
 const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>
 ) => {
@@ -13,8 +14,7 @@ const AppLayout = ({ children }: Readonly<{ children: React.ReactNode }>
 
     return (
         <div className="min-h-screen bg-background">
-            {/* <Navigation user={user} /> */}
-
+            <Navbar />
             <main>{children}</main>
         </div>
     )
