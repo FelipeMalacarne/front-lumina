@@ -1,7 +1,8 @@
 "use client"
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { useState } from "react";
+import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 const data = [
     {
@@ -54,11 +55,34 @@ const data = [
     },
 ]
 
+const CustomTooltip = ({ activeBar, data }: any) => {
+    if (activeBar === null) {
+        return null;
+    }
+
+    const { name, total } = data[activeBar];
+
+    return (
+        <div className="bg-card text-card-foreground border p-2 rounded shadow-md">
+            <p className="font-bold text-primary">{name}</p>
+            <p>Total: ${total}</p>
+        </div>
+    );
+};
+
 export function OverviewCard() {
+    const [activeBar, setActiveBar] = useState(null);
+
+    const handleMouseEnter = (data: any, index: any) => {
+        setActiveBar(index);
+    };
+
+    const handleMouseLeave = () => {
+        setActiveBar(null);
+    };
 
     return (
         <>
-
             <Card className="col-span-4">
                 <CardHeader>
                     <CardTitle>Visão Geral</CardTitle>
@@ -85,6 +109,16 @@ export function OverviewCard() {
                                 fill="currentColor"
                                 radius={[4, 4, 0, 0]}
                                 className="fill-primary"
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                            />
+                            <Tooltip
+                                content={<CustomTooltip activeBar={activeBar} data={data} />}
+                                cursor={{
+                                    fill: "rgba(0, 0, 0, 0.2)",
+                                    strokeWidth: 2,
+                                }}
+
                             />
                         </BarChart>
                     </ResponsiveContainer>

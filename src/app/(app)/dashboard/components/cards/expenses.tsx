@@ -8,7 +8,7 @@ export function ExpensesCard() {
                 <CardTitle className="text-sm font-medium">
                     Despesas
                 </CardTitle>
-                <ArrowDown />
+                <ArrowDown color="currentColor" />
             </CardHeader>
             <CardContent>
                 <div className="text-2xl font-bold">R$1,832.29</div>

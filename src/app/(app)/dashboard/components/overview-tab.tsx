@@ -4,6 +4,7 @@ import { IncomesCard } from "./cards/incomes";
 import { ExpensesCard } from "./cards/expenses";
 import { CreditCard } from "./cards/credit-card";
 import { OverviewCard } from "./cards/overview";
+import { LastTransactionsCard } from "./cards/last-transactions";
 
 export function OverviewTab() {
     return (
@@ -17,6 +18,8 @@ export function OverviewTab() {
                 </div>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                     <OverviewCard />
+                    <LastTransactionsCard />
+
 
                 </div>
             </TabsContent>
