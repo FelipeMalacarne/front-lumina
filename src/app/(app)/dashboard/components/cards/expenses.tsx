@@ -5,13 +5,13 @@ export function ExpensesCard() {
     return (
         <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
+                <CardTitle className="text-primary text-sm font-medium">
                     Despesas
                 </CardTitle>
-                <ArrowDown color="currentColor" />
+                <ArrowDown color="hsl(var(--destructive))" />
             </CardHeader>
             <CardContent>
-                <div className="text-2xl font-bold">R$1,832.29</div>
+                <div className="text-destructive text-2xl font-bold">R$1,832.29</div>
                 <p className="text-xs text-muted-foreground">
                     -50.1%  desde o último mês
                 </p>
