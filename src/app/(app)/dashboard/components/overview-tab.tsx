@@ -3,6 +3,7 @@ import { TotalBalanceCard } from "./cards/total-balance";
 import { IncomesCard } from "./cards/incomes";
 import { ExpensesCard } from "./cards/expenses";
 import { CreditCard } from "./cards/credit-card";
+import { OverviewCard } from "./cards/overview";
 
 export function OverviewTab() {
     return (
@@ -15,6 +16,7 @@ export function OverviewTab() {
                     <CreditCard />
                 </div>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+                    <OverviewCard />
 
                 </div>
             </TabsContent>
