@@ -28,7 +28,7 @@ const groups = [
         ],
     },
     {
-        label: "Projetoj",
+        label: "Projeto",
         projects: [
             {
                 label: "Acme Inc.",
