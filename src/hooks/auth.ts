@@ -41,8 +41,8 @@ export const useAuth = ({ middleware }: { middleware: 'auth' | 'guest', }): Auth
     const router = useRouter()
     const params = useParams()
 
-    const { data: user, error, mutate } = useSWR('/api/user', () =>
-        axios
+    const { data: user, error, mutate } = useSWR('/api/user', async () =>
+        await axios
             .get('/api/user')
             .then(res => res.data)
             .catch(error => {
