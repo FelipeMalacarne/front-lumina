@@ -20,8 +20,7 @@ export function OverviewTab() {
 
                     <OverviewCard />
                     <LastTransactionsCard />
-
-
+                    {/* <PieExpensesCard /> */}
 
                 </div>
             </TabsContent>
