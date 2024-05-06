@@ -8,10 +8,10 @@ export function ExpensesCard() {
                 <CardTitle className="text-primary text-sm font-medium">
                     Despesas
                 </CardTitle>
-                <ArrowDown color="hsl(var(--destructive))" />
+                <ArrowDown color="hsl(var(--muted-foreground))" />
             </CardHeader>
             <CardContent>
-                <div className="text-destructive text-2xl font-bold">R$1,832.29</div>
+                <div className="text-2xl font-bold">R$1,832.29</div>
                 <p className="text-xs text-muted-foreground">
                     -50.1%  desde o último mês
                 </p>

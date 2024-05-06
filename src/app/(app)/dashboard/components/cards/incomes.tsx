@@ -8,10 +8,10 @@ export function IncomesCard() {
                 <CardTitle className="text-primary text-sm font-medium">
                     Receitas
                 </CardTitle>
-                <ArrowUp color="hsl(var(--success))" />
+                <ArrowUp color="hsl(var(--muted-foreground))" />
             </CardHeader>
             <CardContent>
-                <div className="text-2xl font-bold text-success">R$2,231.89</div>
+                <div className="text-2xl font-bold">R$2,231.89</div>
                 <p className="text-xs text-muted-foreground">
                     +20.1%  desde o último mês
                 </p>
