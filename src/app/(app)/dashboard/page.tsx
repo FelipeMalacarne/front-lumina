@@ -1,6 +1,6 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { OverviewTab } from "./components/overview-tab"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { AnalyticsTab } from "./components/analytics-tab"
+import { OverviewTab } from "./components/overview-tab"
 
 export const metadata = {
     title: "Dashboard",

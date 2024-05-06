@@ -17,9 +17,10 @@ export function OverviewTab() {
                     <CreditCard />
                 </div>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+
                     <OverviewCard />
                     <LastTransactionsCard />
-
+                    {/* <PieExpensesCard /> */}
 
                 </div>
             </TabsContent>
