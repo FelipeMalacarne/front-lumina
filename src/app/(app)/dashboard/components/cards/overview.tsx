@@ -81,6 +81,13 @@ export function OverviewCard() {
         setActiveBar(null);
     };
 
+    // hiding error until recharts updates or fix it 
+    const error = console.error;
+    console.error = (...args: any) => {
+        if (/defaultProps/.test(args[0])) return;
+        error(...args);
+    };
+
     return (
         <>
             <Card className="col-span-4">
