@@ -1,4 +1,3 @@
-import { User } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import {
@@ -12,13 +11,18 @@ import {
     DropdownMenuShortcut,
 
 } from "../ui/dropdown-menu";
+import { useContext } from "react";
+import { AuthContext } from "../providers/auth-provider";
+import Loading from "../loading";
 
-interface UserNavProps {
-    user: User
-    logout: () => void
-}
 
-export function UserNav({ user, logout }: UserNavProps) {
+export function UserNav() {
+    const { user, logout } = useContext(AuthContext)
+
+    if (!user) {
+        return <Loading />
+    }
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>

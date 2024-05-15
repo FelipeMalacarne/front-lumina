@@ -2,47 +2,15 @@ import useSWR from 'swr'
 import axios from '@/lib/axios'
 import { useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { User } from '@/lib/types'
+import { Auth, LoginArgs, RegisterArgs } from '@/lib/types'
 
-type RegisterRequest = {
-    name: string,
-    email: string,
-    password: string,
-    password_confirmation: string,
-}
-
-type LoginRequest = {
-    email: string,
-    password: string,
-}
-
-type RegisterArgs = {
-    credentials: RegisterRequest,
-    setErrors: (errors: any) => void,
-}
-
-type LoginArgs = {
-    credentials: LoginRequest,
-    setErrors: (errors: any) => void,
-    setStatus: (status: any) => void,
-}
-
-type Auth = {
-    user: User,
-    register: ({ credentials, setErrors }: RegisterArgs) => void,
-    login: ({ credentials, setErrors, setStatus }: LoginArgs) => void,
-    forgotPassword: ({ setErrors, setStatus, email }: { setErrors: any, setStatus: any, email: string }) => void,
-    resetPassword: ({ setErrors, setStatus, ...props }: { setErrors: any, setStatus: any }) => void,
-    resendEmailVerification: ({ setStatus }: { setStatus: any }) => void,
-    logout: () => void,
-}
 
 export const useAuth = ({ middleware }: { middleware: 'auth' | 'guest', }): Auth => {
     const router = useRouter()
     const params = useParams()
 
     const { data: user, error, mutate } = useSWR('/api/user', async () =>
-        await axios
+        axios
             .get('/api/user')
             .then(res => res.data)
             .catch(error => {

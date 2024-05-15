@@ -1,17 +1,9 @@
-import { User } from "@/lib/types";
 import { ModeToggle } from "../mode-toggle";
 import { MainNav } from "./main-nav";
 import ProjectSwitcher from "./project-switcher";
 import { UserNav } from "./user-nav";
 
-
-interface NavbarProps {
-    user: User
-    logout: () => void
-}
-
-const Navbar = ({ user, logout }: NavbarProps) => {
-
+const Navbar = () => {
     return (
         <>
             <div className="flex-col flex">
@@ -24,7 +16,7 @@ const Navbar = ({ user, logout }: NavbarProps) => {
 
                         <div className="ml-auto flex items-center space-x-4">
                             <ModeToggle />
-                            <UserNav user={user} logout={logout} />
+                            <UserNav />
                         </div>
                     </div>
                 </div>
