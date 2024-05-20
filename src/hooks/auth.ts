@@ -12,7 +12,7 @@ export const useAuth = ({ middleware }: { middleware: 'auth' | 'guest', }): Auth
     const { data: user, error, mutate } = useSWR('/api/user', async () =>
         axios
             .get('/api/user')
-            .then(res => res.data)
+            .then(res => res.data.data)
             .catch(error => {
                 if (error.response.status !== 409) throw error
 

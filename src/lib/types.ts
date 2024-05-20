@@ -1,8 +1,28 @@
 export interface User {
-    id: number
+    id: string
     name: string
     email: string
+    projects?: Project[]
     email_verified_at: Date
+}
+
+export interface Project {
+    id: string
+    name: string
+    type: ProjectType
+    role?: Role
+}
+
+export enum ProjectType {
+    Personal = 'personal',
+    Professional = 'professional',
+}
+
+export enum Role {
+    Owner = 'owner',
+    Admin = 'admin',
+    Member = 'member',
+    Viewer = 'viewer',
 }
 
 export interface ErrorResponse {
