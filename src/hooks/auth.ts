@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Auth, LoginArgs, RegisterArgs } from '@/lib/types'
 
-
 export const useAuth = ({ middleware }: { middleware: 'auth' | 'guest', }): Auth => {
     const router = useRouter()
     const params = useParams()

@@ -2,7 +2,7 @@ export interface User {
     id: string
     name: string
     email: string
-    projects?: Project[]
+    default_project_id: string
     email_verified_at: Date
 }
 

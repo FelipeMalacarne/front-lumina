@@ -5,7 +5,7 @@ import {
     CheckIcon,
     PlusCircledIcon,
 } from "@radix-ui/react-icons"
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Input } from "@/components/ui/input"
@@ -15,46 +15,37 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "../ui/command";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-
-// TODO:: implement
-const groups = [
-    {
-        label: "Projeto Pessoal",
-        projects: [
-            {
-                label: "Felipe Malacarne",
-                value: "personal",
-            },
-        ],
-    },
-    {
-        label: "Projeto",
-        projects: [
-            {
-                label: "Acme Inc.",
-                value: "acme-inc",
-            },
-            {
-                label: "Monsters Inc.",
-                value: "monsters",
-            },
-        ],
-    },
-]
-
-type Project = (typeof groups)[number]["projects"][number]
+import { Project, ProjectType } from "@/lib/types";
+import Loading from "../loading";
+import { useProjects } from "@/hooks/projects";
+import { useAuth } from "@/hooks/auth";
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
 interface ProjectSwitcherProps extends PopoverTriggerProps { }
 
 const ProjectSwitcher = ({ className }: ProjectSwitcherProps) => {
+    const { projects, isLoading, error, mutate } = useProjects()
+    const { user } = useAuth({ middleware: "auth" })
 
     const [open, setOpen] = useState(false)
     const [showNewProjectDialog, setShowNewProjectDialog] = useState(false)
-    const [selectedProject, setSelectedProject] = useState<Project>(
-        groups[0].projects[0]
-    )
+    const [selectedProject, setSelectedProject] = useState<Project>({} as Project)
+
+    useEffect(() => {
+        if (user && projects) {
+            setSelectedProject(projects.find((project) => project.id === user.default_project_id) || projects[0])
+        }
+
+    }, [projects, user])
+
+    if (isLoading) {
+        return <Loading />
+    }
+
+    if (error) {
+        return <div>{error.message}</div>
+    }
 
     return (
         <>
@@ -65,19 +56,19 @@ const ProjectSwitcher = ({ className }: ProjectSwitcherProps) => {
                             variant={"outline"}
                             role="combobox"
                             aria-expanded={open}
-                            aria-label="Select a team"
+                            aria-label="Selecione um projeto"
                             className={cn("w-[200px] justify-between text-ellipsis", className)}
                         >
                             <Avatar className="mr-2 h-5 w-5">
                                 <AvatarImage
                                     // TODO: Avatar src
-                                    src={`https://avatar.vercel.sh/${selectedProject.value}.png`}
-                                    alt={selectedProject.label}
+                                    // src={`https://avatar.vercel.sh/${selectedProject.value}.png`}
+                                    alt={selectedProject.name}
                                     className="grayscale"
                                 />
                                 <AvatarFallback>SC</AvatarFallback>
                             </Avatar>
-                            {selectedProject.label}
+                            {selectedProject.name}
                             <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
 
                         </Button>
@@ -85,13 +76,43 @@ const ProjectSwitcher = ({ className }: ProjectSwitcherProps) => {
                     <PopoverContent className="w-[200px] p-0">
                         <Command>
                             <CommandList>
-                                <CommandInput placeholder="Search team..." />
+                                <CommandInput placeholder="Procure um projeto..." />
                                 <CommandEmpty>Nenhum projeto encontrado.</CommandEmpty>
-                                {groups.map((group) => (
-                                    <CommandGroup key={group.label} heading={group.label}>
-                                        {group.projects.map((project) => (
+                                <CommandGroup key={ProjectType.Personal} heading={"Pessoal"}>
+                                    {projects.map((project) => (project.type === 'personal' && (
+                                        <CommandItem
+                                            key={project.id}
+                                            onSelect={() => {
+                                                setSelectedProject(project)
+                                                setOpen(false)
+                                            }}
+                                            className="text-sm"
+                                        >
+                                            <Avatar className="mr-2 h-5 w-5">
+                                                <AvatarImage
+                                                    // src={`https://avatar.vercel.sh/${project.value}.png`}
+                                                    alt={project.name}
+                                                    className="grayscale"
+                                                />
+                                                <AvatarFallback>SC</AvatarFallback>
+                                            </Avatar>
+                                            {project.name}
+                                            <CheckIcon
+                                                className={cn(
+                                                    "ml-auto h-4 w-4",
+                                                    selectedProject.id === project.id
+                                                        ? "opacity-100"
+                                                        : "opacity-0"
+                                                )}
+                                            />
+                                        </CommandItem>
+                                    )))}
+                                </CommandGroup>
+                                {projects.some((project) => project.type === ProjectType.Professional) && (
+                                    <CommandGroup key={ProjectType.Professional} heading={"Profissional"}>
+                                        {projects.map((project) => (project.type === 'professional' && (
                                             <CommandItem
-                                                key={project.value}
+                                                key={project.id}
                                                 onSelect={() => {
                                                     setSelectedProject(project)
                                                     setOpen(false)
@@ -100,25 +121,25 @@ const ProjectSwitcher = ({ className }: ProjectSwitcherProps) => {
                                             >
                                                 <Avatar className="mr-2 h-5 w-5">
                                                     <AvatarImage
-                                                        src={`https://avatar.vercel.sh/${project.value}.png`}
-                                                        alt={project.label}
+                                                        // src={`https://avatar.vercel.sh/${project.value}.png`}
+                                                        alt={project.name}
                                                         className="grayscale"
                                                     />
                                                     <AvatarFallback>SC</AvatarFallback>
                                                 </Avatar>
-                                                {project.label}
+                                                {project.name}
                                                 <CheckIcon
                                                     className={cn(
                                                         "ml-auto h-4 w-4",
-                                                        selectedProject.value === project.value
+                                                        selectedProject.id === project.id
                                                             ? "opacity-100"
                                                             : "opacity-0"
                                                     )}
                                                 />
                                             </CommandItem>
-                                        ))}
+                                        )))}
                                     </CommandGroup>
-                                ))}
+                                )}
                             </CommandList>
                             <CommandSeparator />
                             <CommandList>
