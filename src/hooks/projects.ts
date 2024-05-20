@@ -10,11 +10,7 @@ type ProjectsHook = {
 }
 
 export const useProjects = (): ProjectsHook => {
-    const { data: projects, isLoading, error, mutate } = useSWR('/api/projects', async () =>
-        axios.get('/api/projects')
-            .then(res => res.data)
-            .catch(error => { throw error })
-    )
+    const { data: projects, isLoading, error, mutate } = useSWR('/api/projects')
 
     return { projects, isLoading, error, mutate }
 }

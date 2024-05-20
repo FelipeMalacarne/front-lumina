@@ -1,4 +1,3 @@
-import axios from "@/lib/axios"
 import useSWR from "swr"
 
 export interface Account {
@@ -18,11 +17,8 @@ export function useAccounts(): {
     error: any,
     mutate: () => Promise<any>,
 } {
-    const { data: accounts, isLoading, error, mutate } = useSWR('/api/accounts', async () =>
-        axios.get('/api/accounts')
-            .then(res => res.data)
-            .catch(error => { throw error })
-    )
+    const { data: accounts, isLoading, error, mutate } = useSWR('/api/accounts')
+
     return { accounts, isLoading, error, mutate }
 }
 
