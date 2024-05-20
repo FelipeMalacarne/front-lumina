@@ -11,14 +11,13 @@ export interface Account {
     projectId: string
 }
 
-export function useAccounts(): {
+export const useAccounts = (): {
     accounts: Account[],
     isLoading: boolean,
     error: any,
     mutate: () => Promise<any>,
-} {
+} => {
     const { data: accounts, isLoading, error, mutate } = useSWR('/api/accounts')
 
     return { accounts, isLoading, error, mutate }
 }
-

@@ -2,7 +2,40 @@ import useSWR from 'swr'
 import axios from '@/lib/axios'
 import { useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { Auth, LoginArgs, RegisterArgs } from '@/lib/types'
+import { User } from '@/lib/types'
+
+type Auth = {
+    user: User,
+    register: ({ credentials, setErrors }: RegisterArgs) => void,
+    login: ({ credentials, setErrors, setStatus }: LoginArgs) => void,
+    forgotPassword: ({ setErrors, setStatus, email }: { setErrors: any, setStatus: any, email: string }) => void,
+    resetPassword: ({ setErrors, setStatus, ...props }: { setErrors: any, setStatus: any }) => void,
+    resendEmailVerification: ({ setStatus }: { setStatus: any }) => void,
+    logout: () => void,
+}
+
+export type RegisterRequest = {
+    name: string,
+    email: string,
+    password: string,
+    password_confirmation: string,
+}
+
+export type LoginRequest = {
+    email: string,
+    password: string,
+}
+
+export type RegisterArgs = {
+    credentials: RegisterRequest,
+    setErrors: (errors: any) => void,
+}
+
+export type LoginArgs = {
+    credentials: LoginRequest,
+    setErrors: (errors: any) => void,
+    setStatus: (status: any) => void,
+}
 
 export const useAuth = ({ middleware }: { middleware: 'auth' | 'guest', }): Auth => {
     const router = useRouter()
@@ -102,7 +135,6 @@ export const useAuth = ({ middleware }: { middleware: 'auth' | 'guest', }): Auth
     }
 
     useEffect(() => {
-
         if (middleware === 'auth' && !user && !error) {
             router.push('/authentication')
         }

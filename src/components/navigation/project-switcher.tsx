@@ -5,7 +5,7 @@ import {
     CheckIcon,
     PlusCircledIcon,
 } from "@radix-ui/react-icons"
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Input } from "@/components/ui/input"
@@ -15,9 +15,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "../ui/command";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { Project, ProjectType } from "@/lib/types";
 import Loading from "../loading";
-import { useProjects } from "@/hooks/projects";
+import { Project, ProjectType, useProjects } from "@/hooks/projects";
 import { useAuth } from "@/hooks/auth";
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
@@ -25,7 +24,7 @@ type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 interface ProjectSwitcherProps extends PopoverTriggerProps { }
 
 const ProjectSwitcher = ({ className }: ProjectSwitcherProps) => {
-    const { projects, isLoading, error, mutate } = useProjects()
+    const { projects, isLoading, error } = useProjects()
     const { user } = useAuth({ middleware: "auth" })
 
     const [open, setOpen] = useState(false)
