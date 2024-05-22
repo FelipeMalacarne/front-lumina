@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { User } from '@/lib/types'
 
-type Auth = {
+export type Auth = {
     user: User,
     register: ({ credentials, setErrors }: RegisterArgs) => void,
     login: ({ credentials, setErrors, setStatus }: LoginArgs) => void,

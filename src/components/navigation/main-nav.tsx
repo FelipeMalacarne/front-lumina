@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { Menu, Package2 } from "lucide-react";
-import ProjectSwitcher from "./project-switcher";
 
 export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
     return (
@@ -19,16 +18,16 @@ export function MainNav({ className, ...props }: React.HTMLAttributes<HTMLElemen
                     Visão Geral
                 </Link>
                 <Link
+                    href="/accounts"
+                    className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                >
+                    Contas Bancárias
+                </Link>
+                <Link
                     href="/transactions"
                     className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                 >
                     Transações
-                </Link>
-                <Link
-                    href="/ledgers"
-                    className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                >
-                    Carteiras
                 </Link>
                 <Link
                     href="/project-configuration"

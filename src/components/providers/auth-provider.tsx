@@ -1,5 +1,4 @@
-import { useAuth } from "@/hooks/auth"
-import { Auth } from "@/lib/types"
+import { Auth, useAuth } from "@/hooks/auth"
 import { createContext } from "react"
 import Loading from "../loading"
 
