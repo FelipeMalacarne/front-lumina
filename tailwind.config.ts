@@ -60,6 +60,26 @@ const config = {
                     DEFAULT: "hsl(var(--success))",
                     foreground: "hsl(var(--success-foreground))",
                 },
+                lavender: {
+                    DEFAULT: "hsl(var(--lavender))",
+                    foreground: "hsl(var(--lavender-foreground))",
+                },
+                orange: {
+                    DEFAULT: "hsl(var(--orange))",
+                    foreground: "hsl(var(--orange-foreground))",
+                },
+                yellow: {
+                    DEFAULT: "hsl(var(--yellow))",
+                    foreground: "hsl(var(--yellow-foreground))",
+                },
+                green: {
+                    DEFAULT: "hsl(var(--green))",
+                    foreground: "hsl(var(--green-foreground))",
+                },
+                emerald: {
+                    DEFAULT: "hsl(var(--emerald))",
+                    foreground: "hsl(var(--emerald-foreground))",
+                },
             },
             borderRadius: {
                 lg: "var(--radius)",

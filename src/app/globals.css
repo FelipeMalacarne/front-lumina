@@ -35,6 +35,22 @@
         --input: 214.3 31.8% 91.4%;
         --ring: 221.2 83.2% 53.3%;
         --radius: 0.5rem;
+
+        --lavender: 276, 53%, 63%;
+        --lavender-foreground: 276 54% 43%;
+
+        --orange: 38, 53%, 53%;
+        --orange-foreground: 38, 54%, 43%;
+
+        --yellow: 50, 54%, 63%;
+        --yellow-foreground: 50, 54%, 43%;
+
+        --green: 83, 54%, 63%;
+        --green-foreground: 83, 54%, 43%;
+
+        --emerald: 136, 54%, 63%;
+        --emerald-foreground: 136, 54%, 43%;
+
     }
 
     .dark {
@@ -47,7 +63,7 @@
         --popover: 222.2 84% 4.9%;
         --popover-foreground: 210 40% 98%;
 
-        --primary: 217.2 91.2% 59.8%;
+        --primary: 217.2 91.2% 30.8%;
         --primary-foreground: 222.2 47.4% 98.2%;
 
         --secondary: 217.2 32.6% 17.5%;
@@ -68,6 +84,21 @@
         --border: 217.2 72.6% 17.5%;
         --input: 217.2 72.6% 17.5%;
         --ring: 224.3 76.3% 48%;
+
+        --lavender: 276, 54%, 33%;
+        --lavender-foreground: 276 54% 23%;
+
+        --orange: 38, 54%, 33%;
+        --orange-foreground: 38, 54%, 23%;
+
+        --yellow: 50, 54%, 33%;
+        --yellow-foreground: 50, 54%, 23%;
+
+        --green: 83, 54%, 33%;
+        --green-foreground: 83, 54%, 23%;
+
+        --emerald: 136, 54%, 33%;
+        --emerald-foreground: 136, 54%, 23%;
     }
 }
 
