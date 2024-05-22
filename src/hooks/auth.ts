@@ -41,7 +41,7 @@ export const useAuth = ({ middleware }: { middleware: 'auth' | 'guest', }): Auth
     const router = useRouter()
     const params = useParams()
 
-    const { data: user, error, mutate } = useSWR('/api/user', async () =>
+    const { data: user, error, isLoading, mutate } = useSWR('/api/user', async () =>
         axios
             .get('/api/user')
             .then(res => res.data.data)
@@ -135,7 +135,7 @@ export const useAuth = ({ middleware }: { middleware: 'auth' | 'guest', }): Auth
     }
 
     useEffect(() => {
-        if (middleware === 'auth' && !user && !error) {
+        if (middleware === 'auth' && (!user && !isLoading) && !error) {
             router.push('/authentication')
         }
         if (middleware === 'guest' && user && !error) {

@@ -39,7 +39,7 @@
         --lavender: 276, 53%, 63%;
         --lavender-foreground: 276 54% 43%;
 
-        --orange: 38, 53%, 53%;
+        --orange: 35, 53%, 63%;
         --orange-foreground: 38, 54%, 43%;
 
         --yellow: 50, 54%, 63%;
@@ -86,19 +86,19 @@
         --ring: 224.3 76.3% 48%;
 
         --lavender: 276, 54%, 33%;
-        --lavender-foreground: 276 54% 23%;
+        --lavender-foreground: 276 54% 24%;
 
-        --orange: 38, 54%, 33%;
-        --orange-foreground: 38, 54%, 23%;
+        --orange: 35, 54%, 33%;
+        --orange-foreground: 38, 54%, 24%;
 
         --yellow: 50, 54%, 33%;
-        --yellow-foreground: 50, 54%, 23%;
+        --yellow-foreground: 50, 54%, 24%;
 
         --green: 83, 54%, 33%;
-        --green-foreground: 83, 54%, 23%;
+        --green-foreground: 83, 54%, 24%;
 
         --emerald: 136, 54%, 33%;
-        --emerald-foreground: 136, 54%, 23%;
+        --emerald-foreground: 136, 54%, 24%;
     }
 }
 

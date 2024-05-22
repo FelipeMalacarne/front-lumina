@@ -25,7 +25,7 @@ export const useProjects = (): {
     error: any,
     mutate: () => Promise<any>,
 } => {
-    const { data: projects, isLoading, error, mutate } = useSWR('/api/projects')
+    const { data: projects, isLoading, error, mutate } = useSWR('/api/project')
 
     return { projects, isLoading, error, mutate }
 }
