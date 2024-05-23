@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Account, AccountColor } from "@/hooks/accounts";
 import { cn } from "@/lib/utils";
 import { Landmark } from "lucide-react";
@@ -7,7 +7,7 @@ type AccountCardProps = {
     account: Account
 }
 
-export function AccountCard({ color }: { color: AccountColor }) {
+export function AccountCard({ account }: AccountCardProps) {
 
     const colors = {
         'lavender': { background: 'bg-lavender', foreground: 'text-lavender-foreground' },
@@ -17,25 +17,36 @@ export function AccountCard({ color }: { color: AccountColor }) {
         'emerald': { background: 'bg-emerald', foreground: 'text-emerald-foreground' },
     }
 
+    const selected = account.color || 'lavender'
 
     return (
-        <Card className="max-w-xs hover:shadow-lg transition-shadow cursor-pointer">
+        <Card className="w-80 hover:shadow-lg transition-shadow cursor-pointer">
             <CardTitle>
-                <div className={cn(`w-full flex justify-center align-middle p-4 py-8 rounded-t-lg`, colors[color].background)}>
-                    <Landmark size={64} className={colors[color].foreground} />
+                <div className={cn(`w-full flex justify-center align-middle p-4 py-8 rounded-t-lg`, colors[selected].background)}>
+                    <Landmark size={64} className={colors[selected].foreground} />
                 </div>
             </CardTitle>
             <CardHeader>
                 <CardTitle>
-                    Nome da conta
+                    {account.name}
                 </CardTitle>
+
                 <CardDescription className={"h-24 text-ellipsis overflow-hidden line-clamp-5"}>
-                    Descrição da conta explicando pra quê ela serve
+                    {account.description}
                 </CardDescription>
             </CardHeader>
-            <CardContent className="flex justify-between">
-                <p>Numero da conta</p>
-                <p>Banco</p>
+            <CardContent>
+
+
+                <div className="flex">
+                    <p className="text-sm font-medium text-ellipsis overflow-hidden line-clamp-1 w-1/2">
+                        {account.number + '-' + account.check_digit}
+                    </p>
+
+                    <p className="text-sm font-medium text-ellipsis line-clamp-1 w-1/2 justify-self-end">
+                        {account.bank_name}
+                    </p>
+                </div>
             </CardContent>
         </Card >
     )

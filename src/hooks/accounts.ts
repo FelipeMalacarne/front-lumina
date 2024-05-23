@@ -5,10 +5,11 @@ export interface Account {
     name: string
     type: string
     number: string
-    checkDigit: string
+    check_digit: string
     balance: number
-    bankId: string
-    projectId: string
+    bank_name: string
+    description: string
+    color: AccountColor
 }
 
 export enum AccountColor {
