@@ -1,5 +1,5 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Account, AccountColor } from "@/hooks/accounts";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Account } from "@/hooks/accounts";
 import { cn } from "@/lib/utils";
 import { Landmark } from "lucide-react";
 
@@ -37,7 +37,6 @@ export function AccountCard({ account }: AccountCardProps) {
             </CardHeader>
             <CardContent>
 
-
                 <div className="flex">
                     <p className="text-sm font-medium text-ellipsis overflow-hidden line-clamp-1 w-1/2">
                         {account.number + '-' + account.check_digit}
@@ -47,6 +46,7 @@ export function AccountCard({ account }: AccountCardProps) {
                         {account.bank_name}
                     </p>
                 </div>
+
             </CardContent>
         </Card >
     )

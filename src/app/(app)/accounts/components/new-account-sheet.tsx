@@ -8,7 +8,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Select, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AccountColor } from "@/hooks/accounts";
 
 const FormSchema = z.object({
     name: z
@@ -21,6 +22,14 @@ const FormSchema = z.object({
         }),
 })
 
+function ColorSquare({ color }: { color: AccountColor }) {
+    return (
+        <div className="flex gap-2 items-center">
+            <div className={`h-6 w-6 rounded-md bg-${color}`} />
+            {color.charAt(0).toUpperCase() + color.slice(1)}
+        </div>
+    )
+}
 
 export function NewAccountSheet() {
 
@@ -75,7 +84,25 @@ export function NewAccountSheet() {
                             <Select>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Selecione uma Cor" />
+
                                 </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value={AccountColor.LAVENDER} className="flex ">
+                                        <ColorSquare color={AccountColor.LAVENDER} />
+                                    </SelectItem>
+                                    <SelectItem value={AccountColor.ORANGE}>
+                                        <ColorSquare color={AccountColor.ORANGE} />
+                                    </SelectItem>
+                                    <SelectItem value={AccountColor.YELLOW}>
+                                        <ColorSquare color={AccountColor.YELLOW} />
+                                    </SelectItem>
+                                    <SelectItem value={AccountColor.GREEN}>
+                                        <ColorSquare color={AccountColor.GREEN} />
+                                    </SelectItem>
+                                    <SelectItem value={AccountColor.EMERALD}>
+                                        <ColorSquare color={AccountColor.EMERALD} />
+                                    </SelectItem>
+                                </SelectContent>
                             </Select>
 
                             <SheetFooter>
