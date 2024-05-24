@@ -10,6 +10,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AccountColor } from "@/hooks/accounts";
+import { useBanks } from "@/hooks/banks";
+import { useState } from "react";
+import Loading from "@/components/loading";
 
 const FormSchema = z.object({
     name: z
@@ -32,10 +35,16 @@ function ColorSquare({ color }: { color: AccountColor }) {
 }
 
 export function NewAccountSheet() {
+    const { banks, isLoading, error } = useBanks()
+    const [bankName, setBankName] = useState<string>('')
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
     })
+
+    if (isLoading) {
+        return <Loading />
+    }
 
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
@@ -46,11 +55,16 @@ export function NewAccountSheet() {
         // props.setIsLoading(false)
     }
 
+    function handleBankChange(event: React.ChangeEvent<HTMLSelectElement>) {
+        const bank = banks.data.find((bank) => String(bank.id) === event.target.value)
+
+        bank ? setBankName(bank.name) : setBankName('')
+    }
+
     return (
         <>
             <Sheet>
                 <SheetTrigger asChild>
-
                     <Button size={'lg'}>
                         Adicionar Conta
                     </Button>
@@ -77,17 +91,21 @@ export function NewAccountSheet() {
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <Input placeholder="Numero da conta" />
-                                <Input placeholder="Código do banco" />
+                                <Input
+                                    placeholder="Código do banco"
+                                    type="number"
+                                    onChange={(e: any) => handleBankChange(e)}
+                                />
                             </div>
 
-                            <Input placeholder="Nome do banco" disabled />
+                            <Input value={bankName} placeholder="Nome do banco" readOnly />
                             <Select>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Selecione uma Cor" />
 
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value={AccountColor.LAVENDER} className="flex ">
+                                    <SelectItem value={AccountColor.LAVENDER} className="flex">
                                         <ColorSquare color={AccountColor.LAVENDER} />
                                     </SelectItem>
                                     <SelectItem value={AccountColor.ORANGE}>
