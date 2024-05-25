@@ -1,7 +1,7 @@
 import useSWR from "swr"
 
 export interface Bank {
-    id: number,
+    id: string,
     name: string,
 }
 

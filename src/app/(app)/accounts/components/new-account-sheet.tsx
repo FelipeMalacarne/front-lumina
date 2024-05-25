@@ -1,6 +1,6 @@
 'use client'
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetHeader, SheetDescription, SheetFooter } from "@/components/ui/sheet";
@@ -16,13 +16,40 @@ import Loading from "@/components/loading";
 
 const FormSchema = z.object({
     name: z
-        .string()
-        .min(10, {
-            message: "Bio must be at least 10 characters.",
+        .string({ required_error: "O nome é obrigatório." })
+        .min(3, {
+            message: "O nome precisa conter no mínimo 3 caracteres.",
         })
-        .max(160, {
-            message: "Bio must not be longer than 30 characters.",
+        .max(50, {
+            message: "O nome pode conter no máximo 50 caracteres.",
         }),
+    description: z
+        .string()
+        .max(255, {
+            message: "A descrição precisa conter no máximo 255 caracteres.",
+        })
+        .optional(),
+    number: z
+        .string({ required_error: "O número é obrigatório." })
+        .length(8, {
+            message: "O número precisa conter 8 caracteres.",
+        }),
+    check_digit: z
+        .string({ required_error: "Obrigatório" })
+        .length(1, {
+            message: "O dígito verificador precisa conter 1 caractere.",
+        }),
+    bank_id: z
+        .string({ required_error: "O código do banco é obrigatório." })
+        .length(3, {
+            message: "O código do banco precisa conter 3 caracteres.",
+        }),
+    color: z
+        .string({ required_error: "A cor é obrigatória." }),
+
+
+    bank_name: z.string({ required_error: "O banco é obrigatório." })
+
 })
 
 function ColorSquare({ color }: { color: AccountColor }) {
@@ -40,19 +67,23 @@ export function NewAccountSheet() {
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
+        defaultValues: {
+            name: '',
+            description: '',
+            number: '',
+            check_digit: '',
+            bank_id: '',
+            color: 'lavender',
+            bank_name: '',
+        },
     })
 
     if (isLoading) {
         return <Loading />
     }
 
-    async function onSubmit(event: React.SyntheticEvent) {
-        event.preventDefault()
-        // props.setIsLoading(true)
-
-        // await register({ credentials, setErrors })
-
-        // props.setIsLoading(false)
+    function onSubmit(values: z.infer<typeof FormSchema>) {
+        console.log(values)
     }
 
     function handleBankChange(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -81,61 +112,136 @@ export function NewAccountSheet() {
                     <Separator className="my-4" />
 
                     <Form {...form}>
-                        <form onSubmit={onSubmit} className="space-y-4">
-
-                            <Input placeholder="Nome da Conta" />
-                            <Textarea
-                                placeholder="Descrição"
-                                className="resize-none"
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                            <FormField
+                                name="name"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>
+                                            Nome:*
+                                        </FormLabel>
+                                        <Input {...field} placeholder="Nome da conta" />
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                name="description"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>
+                                            Descricão:
+                                        </FormLabel>
+                                        <Textarea
+                                            placeholder="Descrição"
+                                            className="resize-none"
+                                            {...field}
+                                        />
+                                        <FormDescription>
+                                            Este campo é opcional.
+                                            Pode ser usado explicar melhor a finalidade da conta.
+                                        </FormDescription>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
                             />
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <Input placeholder="Numero da conta" />
-                                <Input
-                                    placeholder="Código do banco"
-                                    type="number"
-                                    onChange={(e: any) => handleBankChange(e)}
+                            <div className="grid grid-cols-4 sm:grid-cols-5 gap-4">
+                                <FormField
+                                    name="number"
+                                    control={form.control}
+                                    render={({ field }) => (
+                                        <FormItem className="col-span-3 sm:col-span-2">
+                                            <FormLabel>
+                                                Conta:
+                                            </FormLabel>
+
+                                            <Input
+                                                {...field}
+                                                placeholder="00000000"
+                                            />
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    name="check_digit"
+                                    control={form.control}
+                                    render={({ field }) => (
+                                        <FormItem className="col-span-1 sm:col-span-1">
+                                            <FormLabel>
+                                                CV:*
+                                            </FormLabel>
+                                            <Input
+                                                placeholder="1"
+                                                {...field}
+                                            />
+                                        </FormItem>
+                                    )}
+                                />
+
+                                <FormField
+                                    name="bank_id"
+                                    control={form.control}
+                                    render={({ field }) => (
+                                        <FormItem className="col-span-4 sm:col-span-2">
+                                            <FormLabel>
+                                                Banco:*
+                                            </FormLabel>
+                                            <Input
+                                                {...field}
+                                                type="number"
+                                                placeholder="000"
+                                                onChangeCapture={(e: any) => handleBankChange(e)}
+                                            />
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
                                 />
                             </div>
 
-                            <Input value={bankName} placeholder="Nome do banco" readOnly />
-                            <Select>
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Selecione uma Cor" />
+                            <FormField
+                                name="bank_name"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <Input {...field} value={bankName} readOnly />
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
 
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value={AccountColor.LAVENDER} className="flex">
-                                        <ColorSquare color={AccountColor.LAVENDER} />
-                                    </SelectItem>
-                                    <SelectItem value={AccountColor.ORANGE}>
-                                        <ColorSquare color={AccountColor.ORANGE} />
-                                    </SelectItem>
-                                    <SelectItem value={AccountColor.YELLOW}>
-                                        <ColorSquare color={AccountColor.YELLOW} />
-                                    </SelectItem>
-                                    <SelectItem value={AccountColor.GREEN}>
-                                        <ColorSquare color={AccountColor.GREEN} />
-                                    </SelectItem>
-                                    <SelectItem value={AccountColor.EMERALD}>
-                                        <ColorSquare color={AccountColor.EMERALD} />
-                                    </SelectItem>
-                                </SelectContent>
-                            </Select>
+                            <FormField
+                                name="color"
+                                control={form.control}
+                                render={({ field }) => (
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Selecione uma Cor" />
+                                            </SelectTrigger>
+
+                                        </FormControl>
+                                        <SelectContent>
+                                            {Object.values(AccountColor).map((color) => (
+                                                <SelectItem key={color} value={color}>
+                                                    <ColorSquare color={color} />
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                        <FormMessage />
+                                    </Select>
+                                )}
+                            />
 
                             <SheetFooter>
                                 <Button type="submit">Adicionar</Button>
                             </SheetFooter>
                         </form>
-
                     </Form>
-
-
-
-                    <SheetFooter>
-
-                    </SheetFooter>
-
                 </SheetContent>
             </Sheet >
         </>

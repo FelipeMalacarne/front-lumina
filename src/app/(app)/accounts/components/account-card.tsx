@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Account } from "@/hooks/accounts";
 import { cn } from "@/lib/utils";
 import { Landmark } from "lucide-react";
@@ -37,17 +37,20 @@ export function AccountCard({ account }: AccountCardProps) {
             </CardHeader>
             <CardContent>
 
-                <div className="flex">
-                    <p className="text-sm font-medium text-ellipsis overflow-hidden line-clamp-1 w-1/2">
+            </CardContent>
+
+                <CardFooter>
+                <div className="grid grid-cols-2">
+                    <p className="text-sm/10 font-medium text-ellipsis overflow-hidden line-clamp-1">
                         {account.number + '-' + account.check_digit}
                     </p>
 
-                    <p className="text-sm font-medium text-ellipsis line-clamp-1 w-1/2 justify-self-end">
+                    <p className="text-sm/10 font-medium text-ellipsis line-clamp-1 justify-self-end">
                         {account.bank_name}
                     </p>
                 </div>
+                </CardFooter>
 
-            </CardContent>
         </Card >
     )
 }
