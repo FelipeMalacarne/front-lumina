@@ -3,16 +3,17 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetHeader, SheetDescription, SheetFooter } from "@/components/ui/sheet";
+import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetHeader, SheetDescription, SheetFooter, SheetClose } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { AccountColor } from "@/hooks/accounts";
+import { AccountColor, useAccounts } from "@/hooks/accounts";
 import { useBanks } from "@/hooks/banks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "@/components/loading";
+import { useToast } from "@/components/ui/use-toast";
 
 const FormSchema = z.object({
     name: z
@@ -63,7 +64,10 @@ function ColorSquare({ color }: { color: AccountColor }) {
 
 export function NewAccountSheet() {
     const { banks, isLoading, error } = useBanks()
+    const { createAccount } = useAccounts()
+    const { toast } = useToast()
     const [bankName, setBankName] = useState<string>('')
+    const [isOpen, setIsOpen] = useState<boolean>(false)
 
     const form = useForm<z.infer<typeof FormSchema>>({
         resolver: zodResolver(FormSchema),
@@ -78,12 +82,42 @@ export function NewAccountSheet() {
         },
     })
 
+    useEffect(() => {
+        if (error) {
+            toast({
+                title: 'Erro',
+                description: 'Ocorreu um erro ao buscar os bancos.',
+            })
+        }
+    }, [error])
+
     if (isLoading) {
         return <Loading />
     }
 
-    function onSubmit(values: z.infer<typeof FormSchema>) {
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof FormSchema>) {
+        const account = {
+            name: values.name,
+            description: values.description,
+            number: values.number,
+            check_digit: values.check_digit,
+            bank_id: values.bank_id,
+            color: values.color as AccountColor
+        }
+
+        createAccount({ account })
+
+        form.reset({
+            name: '',
+            description: '',
+            number: '',
+            check_digit: '',
+            bank_id: '',
+            color: 'lavender',
+            bank_name: '',
+        })
+
+        setIsOpen(false)
     }
 
     function handleBankChange(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -94,9 +128,9 @@ export function NewAccountSheet() {
 
     return (
         <>
-            <Sheet>
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger asChild>
-                    <Button size={'lg'}>
+                    <Button onClick={() => setIsOpen(true)} size={'lg'}>
                         Adicionar Conta
                     </Button>
                 </SheetTrigger>
@@ -161,6 +195,7 @@ export function NewAccountSheet() {
                                             <Input
                                                 {...field}
                                                 placeholder="00000000"
+                                                type="number"
                                             />
                                             <FormMessage />
                                         </FormItem>
