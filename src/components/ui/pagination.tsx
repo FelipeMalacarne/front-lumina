@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
+import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight, LucideChevronFirst, MoreHorizontal } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { ButtonProps, buttonVariants } from "@/components/ui/button"
@@ -70,7 +70,7 @@ const PaginationPrevious = ({
     {...props}
   >
     <ChevronLeft className="h-4 w-4" />
-    <span>Previous</span>
+    <span>Anterior</span>
   </PaginationLink>
 )
 PaginationPrevious.displayName = "PaginationPrevious"
@@ -85,11 +85,44 @@ const PaginationNext = ({
     className={cn("gap-1 pr-2.5", className)}
     {...props}
   >
-    <span>Next</span>
+    <span>Próximo</span>
     <ChevronRight className="h-4 w-4" />
   </PaginationLink>
 )
 PaginationNext.displayName = "PaginationNext"
+
+const PaginationLast = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="Go to last page"
+    size="default"
+    className={cn("gap-1 pr-2.5", className)}
+    {...props}
+  >
+        <span>Último</span>
+        <ChevronLast className="h-4 w-4" />
+  </PaginationLink>
+)
+PaginationLast.displayName = "PaginationLast"
+
+const PaginationFirst = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="Go to first page"
+    size="default"
+    className={cn("gap-1 pr-2.5", className)}
+    {...props}
+  >
+        <ChevronFirst className="h-4 w-4" />
+        <span>Primeiro</span>
+  </PaginationLink>
+)
+PaginationFirst.displayName = "PaginationFirst"
+
 
 const PaginationEllipsis = ({
   className,
@@ -114,4 +147,6 @@ export {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationLast,
+  PaginationFirst,
 }

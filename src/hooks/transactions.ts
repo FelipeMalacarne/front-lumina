@@ -13,6 +13,7 @@ export interface Transaction {
 
 export const useTransactions = (): {
     transactions: PaginatedResource<Transaction>
+    pageIndex: number
     setPageIndex: (index: number) => void,
     isLoading: boolean,
     error: any,
@@ -21,5 +22,5 @@ export const useTransactions = (): {
 
     const { data: transactions, isLoading, error, mutate } = useSWR(`/api/transaction?page=${pageIndex}`)
 
-    return { transactions, isLoading, error, setPageIndex }
+    return { transactions, isLoading, error, pageIndex,setPageIndex }
 }
