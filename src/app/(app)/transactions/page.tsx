@@ -5,6 +5,7 @@ import { WeeklyCard } from "./components/weekly-card";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { File, ListFilter } from "lucide-react";
+import { AllTab } from "./components/tabs/all-tab";
 
 export const metadata = {
     title: "Transactions",
@@ -72,6 +73,7 @@ const TransactionsPage = () => {
                                     </Button>
                                 </div>
                             </div>
+                            <AllTab />
                         </Tabs>
 
                     </div>

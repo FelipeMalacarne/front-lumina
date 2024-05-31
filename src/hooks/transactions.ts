@@ -1,3 +1,4 @@
+import { PaginatedResource } from "@/lib/types"
 import { useState } from "react"
 import useSWR from "swr"
 
@@ -10,15 +11,15 @@ export interface Transaction {
     created_at: string
 }
 
-export const useProjects = (): {
-    transactions: Transaction[],
+export const useTransactions = (): {
+    transactions: PaginatedResource<Transaction>
     setPageIndex: (index: number) => void,
     isLoading: boolean,
     error: any,
 } => {
     const [pageIndex, setPageIndex] = useState(1)
 
-    const { data: transactions, isLoading, error, mutate } = useSWR(`/api/transactions?page=${pageIndex}`)
+    const { data: transactions, isLoading, error, mutate } = useSWR(`/api/transaction?page=${pageIndex}`)
 
     return { transactions, isLoading, error, setPageIndex }
 }
