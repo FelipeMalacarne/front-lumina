@@ -1,3 +1,4 @@
+import { ChevronFirstIcon, ChevronLastIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 import { Button } from "./ui/button"
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationFirst, PaginationItem, PaginationLast, PaginationLink, PaginationNext, PaginationPrevious } from "./ui/pagination"
 
@@ -7,7 +8,6 @@ interface TablePaginationProps {
     onPageChange: (page: number) => void
 }
 export const TablePagination = ({ currentPage, totalPages, onPageChange }: TablePaginationProps) => {
-
     const pageNumbers = [];
     const maxPagesToShow = 2;
 
@@ -22,7 +22,6 @@ export const TablePagination = ({ currentPage, totalPages, onPageChange }: Table
         }
     }
 
-    // Add page numbers to the array
     for (let i = startPage; i <= endPage; i++) {
         pageNumbers.push(i);
     }
@@ -31,26 +30,37 @@ export const TablePagination = ({ currentPage, totalPages, onPageChange }: Table
         <Pagination>
             <PaginationContent>
                 <PaginationItem>
-                    <Button variant={'ghost'} disabled={currentPage === 1} aria-disabled>
-                        <PaginationFirst onClick={() => onPageChange(1)} />
+                    <Button
+                        variant={'ghost'}
+                        size={'icon'}
+                        disabled={currentPage === 1}
+                        onClick={() => onPageChange(1)}
+                    >
+                        <ChevronFirstIcon />
                     </Button>
 
                 </PaginationItem>
 
                 <PaginationItem>
-                    <Button variant={'ghost'} disabled={currentPage === 1} aria-disabled>
-                        <PaginationPrevious onClick={() => onPageChange(currentPage - 1)} />
+                    <Button
+                        variant={'ghost'}
+                        size={'icon'}
+                        disabled={currentPage === 1}
+                        onClick={() => onPageChange(currentPage - 1)}
+                    >
+                        <ChevronLeftIcon />
                     </Button>
                 </PaginationItem>
 
                 {startPage > 1 && (
-                    <PaginationItem>
+                    <PaginationItem className="hidden md:block" >
                         <PaginationEllipsis />
                     </PaginationItem>
                 )}
 
                 {pageNumbers.map((pageNumber) => (
                     <PaginationItem
+                        className="hidden md:block"
                         key={pageNumber}
                         onClick={() => onPageChange(pageNumber)}
                     >
@@ -59,23 +69,35 @@ export const TablePagination = ({ currentPage, totalPages, onPageChange }: Table
                 ))}
 
                 {endPage < totalPages && (
-                    <PaginationItem>
+                    <PaginationItem className="hidden md:block" >
                         <PaginationEllipsis />
                     </PaginationItem>
                 )}
 
                 <PaginationItem>
-                    <Button variant={'ghost'} disabled={currentPage === totalPages} aria-disabled>
-                        <PaginationNext onClick={() => onPageChange(currentPage + 1)} />
+                    <Button
+                        variant={'ghost'}
+                        size={'icon'}
+                        disabled={currentPage === totalPages}
+                        onClick={() => onPageChange(currentPage + 1)}
+                    >
+                        <ChevronRightIcon />
                     </Button>
                 </PaginationItem>
 
                 <PaginationItem>
-                    <Button variant={'ghost'} disabled={currentPage === totalPages} aria-disabled>
-                        <PaginationLast onClick={() => onPageChange(totalPages)} />
+                    <Button
+                        variant={'ghost'}
+                        size={'icon'}
+                        disabled={currentPage === totalPages}
+                        onClick={() => onPageChange(totalPages)}
+                    >
+                        <ChevronLastIcon />
                     </Button>
                 </PaginationItem>
+
+
             </PaginationContent>
-        </Pagination>
+        </Pagination >
     );
 }

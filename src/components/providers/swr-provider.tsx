@@ -7,6 +7,7 @@ export const SWRProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <SWRConfig value={{
             fetcher: (resource, init) => axios(resource, init).then(res => res.data),
+            suspense: true,
         }}>
             {children}
         </SWRConfig>

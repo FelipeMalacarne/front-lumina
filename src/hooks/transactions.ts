@@ -1,6 +1,6 @@
 import { PaginatedResource } from "@/lib/types"
 import { useState } from "react"
-import useSWR from "swr"
+import useSWR, { preload } from "swr"
 
 export interface Transaction {
     id: string
@@ -11,16 +11,28 @@ export interface Transaction {
     created_at: string
 }
 
+enum TransactionType {
+    CREDIT = "credit",
+    DEBIT = "debit"
+}
+
+type TransactionsQueryParams = {
+    page: number
+    type?: TransactionType
+}
+
 export const useTransactions = (): {
     transactions: PaginatedResource<Transaction>
-    pageIndex: number
-    setPageIndex: (index: number) => void,
+    params: TransactionsQueryParams
+    setParams: (params: TransactionsQueryParams) => void
     isLoading: boolean,
     error: any,
 } => {
-    const [pageIndex, setPageIndex] = useState(1)
+    const [params, setParams] = useState<TransactionsQueryParams>({ page: 1 })
 
-    const { data: transactions, isLoading, error, mutate } = useSWR(`/api/transaction?page=${pageIndex}`)
+    const query = Object.entries(params).map(([key, value]) => `${key}=${value}`).join("&")
 
-    return { transactions, isLoading, error, pageIndex,setPageIndex }
+    const { data: transactions, isLoading, error } = useSWR(`/api/transaction?${query}`)
+
+    return { transactions, isLoading, error, params, setParams }
 }
