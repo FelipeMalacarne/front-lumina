@@ -7,6 +7,7 @@ import { useAccounts } from "@/hooks/accounts"
 import { useTransactions } from "@/hooks/transactions"
 
 export const AllTab = () => {
+
     const { transactions, isLoading, error, pageIndex, setPageIndex } = useTransactions()
     const { accounts, isLoading: isLoadingAccounts, error: errorAccounts } = useAccounts()
 
