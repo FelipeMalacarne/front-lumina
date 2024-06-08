@@ -6,7 +6,7 @@ export const metadata = {
     description: "Contas Bancárias page",
 }
 
-const AccountsPage = async () => {
+const AccountsPage = () => {
 
     return (
         <div className="flex-1 space-y-8 p-8 pt-6">

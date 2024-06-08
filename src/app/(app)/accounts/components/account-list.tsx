@@ -6,12 +6,8 @@ import Loading from "@/components/loading"
 export function AccountList() {
     const { accounts, isLoading, error } = useAccounts()
 
-    if (isLoading) {
+    if (!accounts || isLoading) {
         return <Loading />
-    }
-
-    if (error) {
-        return <div>{error.message}</div>
     }
 
     return (
