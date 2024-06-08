@@ -20,10 +20,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             )} >
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                     <SWRProvider>
-                        <div className="relative flex min-h-screen flex-col">
-                            {children}
-                        </div>
-                        <Toaster />
+                            <div className="relative flex min-h-screen flex-col">
+                                {children}
+                            </div>
+                            <Toaster />
                     </SWRProvider>
                 </ThemeProvider>
             </body>

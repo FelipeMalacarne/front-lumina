@@ -1,12 +1,8 @@
-'use client'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { TabsContent } from "@/components/ui/tabs"
-import { Suspense } from "react"
-import { TransactionsTable, TransactionsTableSkeleton } from "./transactions-table"
-import { useTransactionsTableStore } from "@/hooks/stores/transaction-table-store"
+import { TransactionsTable } from "./transactions-table"
 
 export const AllTab = () => {
-    const { page, transactions, totalPages, setPage } = useTransactionsTableStore()
 
     return (
         <TabsContent value="all">
@@ -19,9 +15,7 @@ export const AllTab = () => {
                 </CardHeader>
 
                 <CardContent>
-                    <Suspense fallback={<TransactionsTableSkeleton />}>
-                        <TransactionsTable />
-                    </Suspense>
+                    <TransactionsTable />
                 </CardContent>
             </Card>
 

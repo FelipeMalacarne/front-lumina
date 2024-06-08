@@ -1,3 +1,4 @@
+'use client'
 import { Auth, useAuth } from "@/hooks/auth"
 import { createContext } from "react"
 import Loading from "../loading"

@@ -11,6 +11,7 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         return <Loading />
 
     }
+
     return (
         <main className="flex-1">
             {children}
