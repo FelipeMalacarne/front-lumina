@@ -43,8 +43,10 @@ export const useTransactions = (): {
         try {
             const formData = new FormData()
             formData.append("file", file)
-            await axios.post("/api/transaction/import/ofx", formData)
-            toast({ title: "Successo", description: "Transações importadas com sucesso" })
+            const response = await axios.post("/api/transaction/import/ofx", formData)
+
+            const count = response.data.count
+            toast({ title: "Successo", description: `${count}x transações importadas!` })
 
             mutate()
 
