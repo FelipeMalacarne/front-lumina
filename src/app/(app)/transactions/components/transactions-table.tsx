@@ -1,15 +1,17 @@
 'use client'
+import { SelectedTransactionContext } from "@/components/providers/selected-transaction-provider"
 import { TablePagination } from "@/components/table-pagination"
-import { Pagination, PaginationContent, PaginationItem } from "@/components/ui/pagination"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Account, useAccounts } from "@/hooks/accounts"
-import { Transaction, useTransactions } from "@/hooks/transactions"
-import { PaginatedResource } from "@/lib/types"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { useAccounts } from "@/hooks/accounts"
+import { useTransactions } from "@/hooks/transactions"
+import { cn } from "@/lib/utils"
+import { useContext } from "react"
 
 export const TransactionsTable = () => {
     const { transactions, params, setParams } = useTransactions()
     const { accounts } = useAccounts()
+    const { selectedTransaction, setSelectedTransaction } = useContext(SelectedTransactionContext)
 
     return (
         <>
@@ -25,7 +27,11 @@ export const TransactionsTable = () => {
 
                 <TableBody>
                     {transactions ? transactions.data.map((transaction) => (
-                        <TableRow key={transaction.id}>
+                        <TableRow
+                            key={transaction.id}
+                            onClick={() => setSelectedTransaction(transaction)}
+                            className={cn('cursor-pointer', selectedTransaction?.id === transaction.id && 'bg-muted')}
+                        >
                             <TableCell className='hidden md:table-cell'>{transaction.id}</TableCell>
                             <TableCell>{transaction.amount}</TableCell>
                             <TableCell className='hidden sm:table-cell'>
