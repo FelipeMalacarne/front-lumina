@@ -1,4 +1,6 @@
-import { PaginatedResource } from "@/lib/types"
+import {  useToast } from "@/components/ui/use-toast"
+import axios from "@/lib/axios"
+import { ErrorResponse, PaginatedResource } from "@/lib/types"
 import { useState } from "react"
 import useSWR, { preload } from "swr"
 
@@ -27,12 +29,29 @@ export const useTransactions = (): {
     setParams: (params: TransactionsQueryParams) => void
     isLoading: boolean,
     error: any,
+    importOfx: (file: File) => void
 } => {
+    const { toast } = useToast()
     const [params, setParams] = useState<TransactionsQueryParams>({ page: 1 })
 
     const query = Object.entries(params).map(([key, value]) => `${key}=${value}`).join("&")
 
-    const { data: transactions, isLoading, error } = useSWR(`/api/transaction?${query}`)
+    const { data: transactions, isLoading, error, mutate } = useSWR(`/api/transaction?${query}`)
 
-    return { transactions, isLoading, error, params, setParams }
+    const importOfx = async (file: File) => {
+
+        try {
+            const formData = new FormData()
+            formData.append("file", file)
+            await axios.post("/api/transaction/import/ofx", formData)
+            toast({ title: "Successo", description: "Transações importadas com sucesso" })
+
+            mutate()
+
+        } catch (error: any) {
+            toast({ title: "Erro", description: error.response.data.message, variant: "destructive" })
+        }
+    }
+
+    return { transactions, isLoading, error, params, setParams, importOfx }
 }
