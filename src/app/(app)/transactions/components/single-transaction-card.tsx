@@ -46,8 +46,6 @@ export default function SingleTransactionCard() {
 
     if (!account || isLoading) return null
 
-    console.log(selectedTransaction)
-
     return (
         <Card className="overflow-hidden">
             <CardHeader className="flex flex-row items-start bg-muted/50">
@@ -94,10 +92,10 @@ export default function SingleTransactionCard() {
                         </li>
 
                         <li className="flex items-center justify-between">
-                            <span className="text-muted-foreground">
-                                Memo
+                            <span className="text-muted-foreground w-1/2">Memo</span>
+                            <span className="text-right break-words">
+                                {selectedTransaction.memo}
                             </span>
-                            <span>{selectedTransaction.memo}</span>
                         </li>
 
                         <li className="flex items-center justify-between">
@@ -112,7 +110,6 @@ export default function SingleTransactionCard() {
                                 })}
                             </span>
                         </li>
-
 
                         <li className="flex items-center justify-between">
                             <span className="text-muted-foreground">
@@ -165,7 +162,7 @@ export default function SingleTransactionCard() {
                         </li>
                     </ul>
                 </div>
-            </CardContent>
+            </CardContent >
             <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
                 <div className="text-xs text-muted-foreground">
                     Atualizado <time dateTime={selectedTransaction.updated_at}>
@@ -193,6 +190,6 @@ export default function SingleTransactionCard() {
                     </PaginationContent>
                 </Pagination>
             </CardFooter>
-        </Card>
+        </Card >
     )
 }
