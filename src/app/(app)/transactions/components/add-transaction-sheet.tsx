@@ -1,13 +1,16 @@
+'use client'
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { z } from "zod"
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { OfxTab } from "./ofx-tab"
+import { useState } from "react"
 
 export const AddTransactionSheet = () => {
+    const [open, setOpen] = useState<boolean>(false)
+
     return (
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen} >
             <SheetTrigger asChild>
                 <Button>
                     Adicione Transações
@@ -27,11 +30,11 @@ export const AddTransactionSheet = () => {
 
                 <Tabs defaultValue="ofx">
                     <TabsList>
-                        <TabsTrigger value="manual">Manual</TabsTrigger>
                         <TabsTrigger value="ofx"> Ofx</TabsTrigger>
+                        <TabsTrigger value="manual">Manual</TabsTrigger>
                         <TabsTrigger value="csv">Csv</TabsTrigger>
                     </TabsList>
-                    <OfxTab/>
+                    <OfxTab close={()=> setOpen(false)} />
                 </Tabs>
 
             </SheetContent>
