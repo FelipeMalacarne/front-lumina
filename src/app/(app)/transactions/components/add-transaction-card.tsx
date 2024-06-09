@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { AddTransactionSheet } from "./add-transaction-sheet"
 
 export const AddTransactionCard = () => {
     return (
@@ -11,7 +12,7 @@ export const AddTransactionCard = () => {
                 </CardDescription>
             </CardHeader>
             <CardFooter>
-                <Button>Adicione transações</Button>
+                <AddTransactionSheet/>
             </CardFooter>
         </Card>
     )

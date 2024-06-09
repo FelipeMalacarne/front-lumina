@@ -214,6 +214,7 @@ export function NewAccountSheet() {
                                                 placeholder="1"
                                                 {...field}
                                             />
+                                            <FormMessage />
                                         </FormItem>
                                     )}
                                 />
