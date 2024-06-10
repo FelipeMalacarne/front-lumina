@@ -1,4 +1,5 @@
 'use client'
+import Loading from "@/components/loading"
 import { SelectedTransactionContext } from "@/components/providers/selected-transaction-provider"
 import { TablePagination } from "@/components/table-pagination"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -9,9 +10,13 @@ import { cn } from "@/lib/utils"
 import { useContext } from "react"
 
 export const TransactionsTable = () => {
-    const { transactions, params, setParams } = useTransactions()
     const { accounts } = useAccounts()
+    const { transactions, params, setParams } = useTransactions()
     const { selectedTransaction, setSelectedTransaction } = useContext(SelectedTransactionContext)
+
+    if (!accounts) {
+        return <Loading/>
+    }
 
     return (
         <>
