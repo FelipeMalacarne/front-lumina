@@ -13,7 +13,6 @@ export const TransactionsTable = ({ transactions }: {
     transactions: PaginatedResource<Transaction>
 }) => {
     const { accounts } = useAccounts()
-    const { transactions, params, setParams } = useTransactions()
     const { selectedTransaction, setSelectedTransaction } = useContext(SelectedTransactionContext)
 
     if (!accounts) {
