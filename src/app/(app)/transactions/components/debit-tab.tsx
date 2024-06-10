@@ -2,19 +2,24 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { TabsContent } from "@/components/ui/tabs"
 import { TransactionsTable } from "./transactions-table"
-import { useTransactions } from "@/hooks/transactions"
+import { TransactionType, useTransactions } from "@/hooks/transactions"
 import { TablePagination } from "@/components/table-pagination"
+import { useEffect } from "react"
 
-export const AllTab = () => {
+export const DebitTab = () => {
     const { transactions, params, setParams } = useTransactions()
 
+    useEffect(() => {
+        setParams({...params, type: TransactionType.DEBIT} )
+    }, [])
+
     return (
-        <TabsContent value="all">
+        <TabsContent value="debit">
             <Card>
                 <CardHeader className="px-7">
-                    <CardTitle>Transações</CardTitle>
+                    <CardTitle>Saídas</CardTitle>
                     <CardDescription>
-                        Ultimas transações realizadas
+                        Ultimas saídas realizados
                     </CardDescription>
                 </CardHeader>
 

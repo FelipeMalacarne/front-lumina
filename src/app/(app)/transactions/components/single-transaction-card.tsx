@@ -3,16 +3,13 @@ import {
     ChevronLeft,
     ChevronRight,
     Copy,
-    CreditCard,
     MoreVertical,
-    Truck,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
@@ -32,19 +29,20 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { useContext } from "react"
 import { SelectedTransactionContext } from "@/components/providers/selected-transaction-provider"
-import useSWR from "swr"
-import { Account } from "@/hooks/accounts"
+import { Account, useAccounts } from "@/hooks/accounts"
 
 export default function SingleTransactionCard() {
     const { selectedTransaction } = useContext(SelectedTransactionContext)
 
-    const { data: account, error, isLoading }: {
-        data: Account | undefined, error: any, isLoading: boolean
-    } = useSWR(`/api/account/${selectedTransaction?.account_id}`)
+    const { accounts } = useAccounts()
 
     if (!selectedTransaction) return null
 
-    if (!account || isLoading) return null
+    if (!accounts) return null
+
+    const account = accounts.find((account: Account) => account.id === selectedTransaction.account_id)
+
+    if (!account) return null
 
     return (
         <Card className="overflow-hidden">
