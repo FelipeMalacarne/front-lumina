@@ -55,6 +55,11 @@ export const useAccounts = (): {
             mutate((accounts: Account[] | undefined) => {
                 return accounts ? [...accounts, response.data] : [response.data]
             })
+
+            toast({
+                title: 'Successo',
+                description: 'Conta criada com sucesso',
+            })
         } catch (error: any) {
             const errorResponse: ErrorResponse = error.response.data
             toast({
