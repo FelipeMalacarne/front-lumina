@@ -38,7 +38,7 @@ export const TransactionsTable = () => {
                                 {accounts.find(account => account.id === transaction.account_id)?.name
                                     || transaction.account_id}
                             </TableCell>
-                            <TableCell>{transaction.date_posted}</TableCell>
+                            <TableCell>{transaction.date_posted.toLocaleString()}</TableCell>
                         </TableRow>
                     )) : Array.from({ length: 15 }).map((_, index) => (<RowSkeleton key={index} />))
                     }

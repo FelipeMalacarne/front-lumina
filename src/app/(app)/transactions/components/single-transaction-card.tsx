@@ -38,11 +38,11 @@ import { Account } from "@/hooks/accounts"
 export default function SingleTransactionCard() {
     const { selectedTransaction } = useContext(SelectedTransactionContext)
 
-    if (!selectedTransaction) return null
-
     const { data: account, error, isLoading }: {
         data: Account | undefined, error: any, isLoading: boolean
     } = useSWR(`/api/account/${selectedTransaction?.account_id}`)
+
+    if (!selectedTransaction) return null
 
     if (!account || isLoading) return null
 
@@ -165,7 +165,7 @@ export default function SingleTransactionCard() {
             </CardContent >
             <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
                 <div className="text-xs text-muted-foreground">
-                    Atualizado <time dateTime={selectedTransaction.updated_at}>
+                    Atualizado <time dateTime={selectedTransaction.updated_at.toString()}>
                         {new Date(selectedTransaction.updated_at).toLocaleDateString('pt-BR', {
                             day: 'numeric',
                             month: 'long',

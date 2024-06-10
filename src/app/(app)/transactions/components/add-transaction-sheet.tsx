@@ -5,6 +5,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { OfxTab } from "./ofx-tab"
 import { useState } from "react"
+import { ManualTab } from "./manual-tab"
 
 export const AddTransactionSheet = () => {
     const [open, setOpen] = useState<boolean>(false)
@@ -28,13 +29,14 @@ export const AddTransactionSheet = () => {
 
                 <Separator className="my-4" />
 
-                <Tabs defaultValue="ofx">
+                <Tabs defaultValue="manual">
                     <TabsList>
-                        <TabsTrigger value="ofx"> Ofx</TabsTrigger>
                         <TabsTrigger value="manual">Manual</TabsTrigger>
+                        <TabsTrigger value="ofx"> Ofx</TabsTrigger>
                         <TabsTrigger value="csv">Csv</TabsTrigger>
                     </TabsList>
                     <OfxTab close={()=> setOpen(false)} />
+                    <ManualTab close={()=> setOpen(false)} />
                 </Tabs>
 
             </SheetContent>
