@@ -14,7 +14,7 @@ export interface Transaction {
     updated_at: Date
 }
 
-enum TransactionType {
+export enum TransactionType {
     CREDIT = "credit",
     DEBIT = "debit"
 }

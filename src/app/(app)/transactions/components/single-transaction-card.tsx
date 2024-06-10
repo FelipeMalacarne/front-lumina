@@ -3,16 +3,13 @@ import {
     ChevronLeft,
     ChevronRight,
     Copy,
-    CreditCard,
     MoreVertical,
-    Truck,
 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
@@ -44,6 +41,8 @@ export default function SingleTransactionCard() {
     if (!accounts) return null
 
     const account = accounts.find((account: Account) => account.id === selectedTransaction.account_id)
+
+    if (!account) return null
 
     return (
         <Card className="overflow-hidden">

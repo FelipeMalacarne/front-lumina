@@ -1,15 +1,16 @@
 'use client'
 import { SelectedTransactionContext } from "@/components/providers/selected-transaction-provider"
-import { TablePagination } from "@/components/table-pagination"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useAccounts } from "@/hooks/accounts"
-import { useTransactions } from "@/hooks/transactions"
+import { Transaction } from "@/hooks/transactions"
+import { PaginatedResource } from "@/lib/types"
 import { cn } from "@/lib/utils"
 import { useContext } from "react"
 
-export const TransactionsTable = () => {
-    const { transactions, params, setParams } = useTransactions()
+export const TransactionsTable = ({ transactions }: {
+    transactions: PaginatedResource<Transaction>
+}) => {
     const { accounts } = useAccounts()
     const { selectedTransaction, setSelectedTransaction } = useContext(SelectedTransactionContext)
 
@@ -35,7 +36,7 @@ export const TransactionsTable = () => {
                             <TableCell className='hidden md:table-cell'>{transaction.id}</TableCell>
                             <TableCell>{transaction.amount}</TableCell>
                             <TableCell className='hidden sm:table-cell'>
-                                {accounts.find(account => account.id === transaction.account_id)?.name
+                                {accounts?.find(account => account.id === transaction.account_id)?.name
                                     || transaction.account_id}
                             </TableCell>
                             <TableCell>{transaction.date_posted.toLocaleString()}</TableCell>
@@ -45,13 +46,6 @@ export const TransactionsTable = () => {
                 </TableBody>
             </Table>
 
-            {transactions && transactions.meta.total > 0 &&
-                <TablePagination
-                    currentPage={params.page}
-                    totalPages={transactions.meta.last_page}
-                    onPageChange={(page) => setParams({ ...params, page })}
-                />
-            }
         </>
     )
 }
