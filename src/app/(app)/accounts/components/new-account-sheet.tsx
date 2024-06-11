@@ -53,7 +53,7 @@ const FormSchema = z.object({
 
 })
 
-function ColorSquare({ color }: { color: AccountColor }) {
+export function ColorSquare({ color }: { color: AccountColor }) {
     return (
         <div className="flex gap-2 items-center">
             <div className={`h-6 w-6 rounded-md bg-${color}`} />
