@@ -42,6 +42,7 @@ export const useAccounts = (): {
     error: any,
     createAccount: ({ account }: CreateAccountArgs) => Promise<void>,
     deleteAccount: (id: string) => void
+    updateAccount: (id: string, data: Partial<Account>) => void
 } => {
     const { toast } = useToast()
     const { data: accounts, isLoading, error, mutate } = useSWR('/api/account')
@@ -82,11 +83,23 @@ export const useAccounts = (): {
         }
     }
 
+    const updateAccount = async (id: string, data: Partial<Account>) => {
+        try {
+            await axios.put(`/api/account/${id}`, data)
+            toast({ title: "Successo", description: "Conta atualizada com sucesso!" })
+
+            mutate()
+        } catch (error: any) {
+            toast({ title: "Erro", description: error.response.data.message, variant: "destructive" })
+        }
+    }
+
     return {
         accounts,
         isLoading,
         error,
         createAccount,
         deleteAccount,
+        updateAccount,
     }
 }
