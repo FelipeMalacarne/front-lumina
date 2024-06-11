@@ -8,7 +8,6 @@ import { Separator } from "@/components/ui/separator"
 import { useContext, useEffect, useState } from "react"
 import { SelectedTransactionContext } from "@/components/providers/selected-transaction-provider"
 import { Account, useAccounts } from "@/hooks/accounts"
-import { DeleteDialog } from "@/components/delete-dialog"
 import { useTransactions } from "@/hooks/transactions"
 import { Input } from "@/components/ui/input"
 import { z } from "zod"
@@ -20,9 +19,13 @@ import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { Calendar } from "@/components/ui/calendar"
+import { DeleteDialog } from "@/components/delete-dialog"
 
 const formSchema = z.object({
-    amount: z.coerce.number({ required_error: "O valor é obrigatório" }).refine((val) => val !== 0, { message: "O valor não pode ser 0" }),
+    amount: z.coerce.number({ required_error: "O valor é obrigatório" })
+        .max(9999999)
+        .refine((val) => val !== 0, { message: "O valor não pode ser 0" })
+        .transform((val) => Math.round(val * 100)),
     date_posted: z.date({ required_error: "A data é obrigatória" }),
     memo: z.string().max(255).optional(),
 })
@@ -68,12 +71,12 @@ export default function SingleTransactionCard() {
     }
 
     const handleUpdate = (data: z.infer<typeof formSchema>) => {
-        updateTransaction(selectedTransaction.id, { ...data, amount: data.amount * 100 })
+        updateTransaction(selectedTransaction.id, data)
 
         setSelectedTransaction({
             ...selectedTransaction,
             ...data,
-            amount: data.amount * 100
+            amount: data.amount
         })
 
         setIsEditing(false)
