@@ -30,6 +30,7 @@ export const ManualTab = ({ close }: { close: () => void }) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
+            amount: 0,
             memo: '',
             date_posted: new Date()
         }
@@ -52,7 +53,11 @@ export const ManualTab = ({ close }: { close: () => void }) => {
                             <FormItem>
                                 <FormLabel>Valor:* </FormLabel>
                                 <FormControl>
-                                    <Input {...field} type="number" />
+                                    <Input {...field}
+                                        type="number"
+                                        value={field.value === 0 ? '' : field.value}
+                                        onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
