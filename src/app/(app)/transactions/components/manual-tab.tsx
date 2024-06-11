@@ -17,15 +17,7 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 const formSchema = z.object({
-    amount: z.string({ required_error: "O valor é obrigatório" })
-        .transform((val) => parseFloat(val) * 100)
-        .refine(
-            (num) => num >= -100000000000 && num <= 100000000000,
-            {
-                message: "O valor deve estar entre -100000000000 e 100000000000",
-            }
-        ),
-
+    amount: z.coerce.number({ required_error: "O valor é obrigatório" }).refine((val) => val !== 0, { message: "O valor não pode ser 0" }),
     date_posted: z.date({ required_error: "A data é obrigatória" }),
     memo: z.string().max(255).optional(),
     account_id: z.string().uuid(),
@@ -37,15 +29,17 @@ export const ManualTab = ({ close }: { close: () => void }) => {
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
+        defaultValues: {
+            memo: '',
+            date_posted: new Date()
+        }
     })
 
     const onSubmit = (data: z.infer<typeof formSchema>) => {
-
-        manualCreate(data)
+        manualCreate({ ...data, amount: data.amount * 100 })
 
         close()
     }
-
 
     return (
         <TabsContent value="manual">

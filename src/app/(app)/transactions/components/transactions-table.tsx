@@ -16,7 +16,7 @@ export const TransactionsTable = ({ transactions }: {
     const { selectedTransaction, setSelectedTransaction } = useContext(SelectedTransactionContext)
 
     if (!accounts) {
-        return <Loading/>
+        return <Loading />
     }
 
     return (
@@ -39,7 +39,12 @@ export const TransactionsTable = ({ transactions }: {
                             className={cn('cursor-pointer', selectedTransaction?.id === transaction.id && 'bg-muted')}
                         >
                             <TableCell className='hidden md:table-cell'>{transaction.id}</TableCell>
-                            <TableCell>{transaction.amount}</TableCell>
+                            <TableCell>
+                                {new Intl.NumberFormat('pt-BR', {
+                                    style: 'currency',
+                                    currency: 'BRL'
+                                }).format(transaction.amount / 100)}
+                            </TableCell>
                             <TableCell className='hidden sm:table-cell'>
                                 {accounts?.find(account => account.id === transaction.account_id)?.name
                                     || transaction.account_id}
