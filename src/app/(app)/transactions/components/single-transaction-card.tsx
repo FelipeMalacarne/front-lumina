@@ -1,51 +1,42 @@
 'use client'
-import {
-    ChevronLeft,
-    ChevronRight,
-    Copy,
-    MoreVertical,
-} from "lucide-react"
-
+import { ChevronLeft, ChevronRight, Copy, MoreVertical, } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-} from "@/components/ui/pagination"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu"
+import { Pagination, PaginationContent, PaginationItem, } from "@/components/ui/pagination"
 import { Separator } from "@/components/ui/separator"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { SelectedTransactionContext } from "@/components/providers/selected-transaction-provider"
 import { Account, useAccounts } from "@/hooks/accounts"
+import { DeleteDialog } from "@/components/delete-dialog"
+import { useTransactions } from "@/hooks/transactions"
 
 export default function SingleTransactionCard() {
     const { selectedTransaction } = useContext(SelectedTransactionContext)
-
     const { accounts } = useAccounts()
+    const { deleteTransaction } = useTransactions()
+    const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
 
-    if (!selectedTransaction) return null
-
-    if (!accounts) return null
+    if (!selectedTransaction || !accounts) return null;
 
     const account = accounts.find((account: Account) => account.id === selectedTransaction.account_id)
 
     if (!account) return null
 
+    const handleDelete = () => {
+        deleteTransaction(selectedTransaction.id)
+        setShowDeleteDialog(false)
+    }
+
     return (
         <Card className="overflow-hidden">
+
+            <DeleteDialog
+                onConfirm={handleDelete}
+                open={showDeleteDialog}
+                setOpen={setShowDeleteDialog}
+            />
+
             <CardHeader className="flex flex-row items-start bg-muted/50">
                 <div className="grid gap-0.5">
                     <CardTitle className="group flex items-center gap-2 text-lg">
@@ -72,7 +63,7 @@ export default function SingleTransactionCard() {
                             <DropdownMenuItem>Edit</DropdownMenuItem>
                             <DropdownMenuItem>Export</DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>Trash</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => setShowDeleteDialog(true)}>Excluir</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>

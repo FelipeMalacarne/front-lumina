@@ -1,8 +1,8 @@
 import { useToast } from "@/components/ui/use-toast"
 import axios from "@/lib/axios"
-import { ErrorResponse, PaginatedResource } from "@/lib/types"
+import { PaginatedResource } from "@/lib/types"
 import { useState } from "react"
-import useSWR, { preload } from "swr"
+import useSWR from "swr"
 
 export interface Transaction {
     id: string
@@ -32,6 +32,7 @@ export const useTransactions = (): {
     error: any,
     importOfx: (file: File) => void
     manualCreate: (params: { amount: number, date_posted: Date, memo?: string, account_id: string }) => void
+    deleteTransaction: (id: string) => void
 } => {
     const { toast } = useToast()
     const [params, setParams] = useState<TransactionsQueryParams>({ page: 1 })
@@ -69,8 +70,26 @@ export const useTransactions = (): {
         }
     }
 
+    const deleteTransaction = async (id: string) => {
+        try {
+            await axios.delete(`/api/transaction/${id}`)
+            toast({ title: "Successo", description: "Transação deletada com sucesso!" })
 
+            mutate()
 
+        } catch (error: any) {
+            toast({ title: "Erro", description: error.response.data.message, variant: "destructive" })
+        }
+    }
 
-    return { transactions, isLoading, error, params, setParams, importOfx, manualCreate }
+    return {
+        transactions,
+        isLoading,
+        error,
+        params,
+        setParams,
+        importOfx,
+        manualCreate,
+        deleteTransaction
+    }
 }
