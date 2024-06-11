@@ -33,6 +33,7 @@ export const useTransactions = (): {
     importOfx: (file: File) => void
     manualCreate: (params: { amount: number, date_posted: Date, memo?: string, account_id: string }) => void
     deleteTransaction: (id: string) => void
+    updateTransaction: (id: string, data: Partial<Transaction>) => void
 } => {
     const { toast } = useToast()
     const [params, setParams] = useState<TransactionsQueryParams>({ page: 1 })
@@ -76,7 +77,17 @@ export const useTransactions = (): {
             toast({ title: "Successo", description: "Transação deletada com sucesso!" })
 
             mutate()
+        } catch (error: any) {
+            toast({ title: "Erro", description: error.response.data.message, variant: "destructive" })
+        }
+    }
 
+    const updateTransaction = async (id: string, data: Partial<Transaction>) => {
+        try {
+            await axios.put(`/api/transaction/${id}`, data)
+            toast({ title: "Successo", description: "Transação atualizada com sucesso!" })
+
+            mutate()
         } catch (error: any) {
             toast({ title: "Erro", description: error.response.data.message, variant: "destructive" })
         }
@@ -90,6 +101,7 @@ export const useTransactions = (): {
         setParams,
         importOfx,
         manualCreate,
-        deleteTransaction
+        deleteTransaction,
+        updateTransaction,
     }
 }
