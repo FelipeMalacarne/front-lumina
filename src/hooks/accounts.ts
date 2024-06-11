@@ -41,6 +41,7 @@ export const useAccounts = (): {
     isLoading: boolean,
     error: any,
     createAccount: ({ account }: CreateAccountArgs) => Promise<void>,
+    deleteAccount: (id: string) => void
 } => {
     const { toast } = useToast()
     const { data: accounts, isLoading, error, mutate } = useSWR('/api/account')
@@ -70,6 +71,22 @@ export const useAccounts = (): {
         }
     }
 
+    const deleteAccount = async (id: string) => {
+        try {
+            await axios.delete(`/api/account/${id}`)
+            toast({ title: "Successo", description: "Conta deletada com sucesso!" })
 
-    return { accounts, isLoading, error, createAccount }
+            mutate()
+        } catch (error: any) {
+            toast({ title: "Erro", description: error.response.data.message, variant: "destructive" })
+        }
+    }
+
+    return {
+        accounts,
+        isLoading,
+        error,
+        createAccount,
+        deleteAccount,
+    }
 }
