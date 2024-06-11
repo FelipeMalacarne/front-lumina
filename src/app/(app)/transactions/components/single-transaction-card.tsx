@@ -139,7 +139,6 @@ export default function SingleTransactionCard() {
                     <CardContent className="p-6 text-sm">
                         <div className="grid gap-3">
 
-
                             <div className="font-semibold">Detalhes da Transação</div>
 
                             <ul className="grid gap-3">
@@ -191,7 +190,6 @@ export default function SingleTransactionCard() {
                                 <li className="flex items-center justify-between">
                                     <span className="text-muted-foreground"> Realizada </span>
                                     {isEditing ? (
-
                                         <FormField
                                             control={form.control}
                                             name="date_posted"
