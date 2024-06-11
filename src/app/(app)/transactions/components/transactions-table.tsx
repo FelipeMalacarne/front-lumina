@@ -3,7 +3,7 @@ import Loading from "@/components/loading"
 import { SelectedTransactionContext } from "@/components/providers/selected-transaction-provider"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { useAccounts } from "@/hooks/accounts"
+import {  useAccounts } from "@/hooks/accounts"
 import { Transaction } from "@/hooks/transactions"
 import { PaginatedResource } from "@/lib/types"
 import { cn } from "@/lib/utils"
@@ -46,8 +46,11 @@ export const TransactionsTable = ({ transactions }: {
                                 }).format(transaction.amount / 100)}
                             </TableCell>
                             <TableCell className='hidden sm:table-cell'>
-                                {accounts?.find(account => account.id === transaction.account_id)?.name
-                                    || transaction.account_id}
+                                <div className='flex items-center space-x-2'>
+                                    <div className={cn('w-2 h-2 rounded-full mr-2', 'bg-' + accounts?.find(account => account.id === transaction.account_id)?.color || '')} />
+                                    {accounts?.find(account => account.id === transaction.account_id)?.name
+                                        || transaction.account_id}
+                                </div>
                             </TableCell>
                             <TableCell>{transaction.date_posted.toLocaleString()}</TableCell>
                         </TableRow>
