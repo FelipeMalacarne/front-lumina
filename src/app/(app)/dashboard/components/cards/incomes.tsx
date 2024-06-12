@@ -10,10 +10,13 @@ export function IncomesCard() {
 
     const getIncomes = async () => {
         try {
-            const response = await axios<{ monthly_income: number, percentage_change: string }>('/api/dashboard/monthly-income')
+            const response = await axios<{ monthly_income: number, percentage_change: number }>('/api/dashboard/monthly-income')
 
-            setIncomes(new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(response.data.monthly_income / 100))
-            setPercentageChange(response.data.percentage_change)
+            const formatCurrency = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format;
+            const formatPercentage = (number: number) => (number > 0 ? '+' : '') + number.toFixed(2) + '%';
+
+            setIncomes(formatCurrency(response.data.monthly_income / 100));
+            setPercentageChange(formatPercentage(response.data.percentage_change));
 
         } catch (error: any) {
             console.error(error)
@@ -21,9 +24,8 @@ export function IncomesCard() {
     }
 
     useEffect(() => {
-        getIncomes()
-    }, [])
-
+        getIncomes();
+    }, []);
 
     return (
         <Card>
