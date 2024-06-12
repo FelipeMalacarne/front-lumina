@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import useSWR from "swr";
 
 export function LastTransactionsCard() {
-    const { data, isLoading, error } = useSWR('/api/dashboard/last-transactions')
+    const { data } = useSWR('/api/dashboard/last-transactions')
 
     const formatCurrency = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format;
 

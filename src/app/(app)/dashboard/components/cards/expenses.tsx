@@ -1,31 +1,14 @@
 'use client'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import axios from "@/lib/axios";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import useSWR from "swr";
 
 export function ExpensesCard() {
-    const [expenses, setExpenses] = useState<string>("R$ 0,00")
-    const [percentageChange, setPercentageChange] = useState<string>("+0%")
+    const { data } = useSWR<{ monthly_expense: number, percentage_change: number }>('/api/dashboard/monthly-expense')
 
-    const getExpenses = async () => {
-        try {
-            const response = await axios<{ monthly_expense: number, percentage_change: number }>('/api/dashboard/monthly-expense')
-
-            const formatCurrency = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format;
-            const formatPercentage = (number: number) => (number > 0 ? '+' : '') + number.toFixed(2) + '%';
-
-            setExpenses(formatCurrency(response.data.monthly_expense / 100))
-            setPercentageChange(formatPercentage(response.data.percentage_change))
-
-        } catch (error: any) {
-            console.error(error)
-        }
-    }
-
-    useEffect(() => {
-        getExpenses()
-    }, [])
+    const formatCurrency = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format;
+    const formatPercentage = (number: number) => (number > 0 ? '+' : '') + number.toFixed(2) + '%';
 
     return (
         <Card>
@@ -37,12 +20,16 @@ export function ExpensesCard() {
             </CardHeader>
             <CardContent>
                 <div className="text-2xl font-bold">
-                    {expenses}
+                    {data ? formatCurrency(data.monthly_expense / 100) : <Skeleton className="w-24 h-6" />}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                    {percentageChange} desde o último mês
+                    {data ? (
+                        <span>{formatPercentage(data.percentage_change)} desde o último mês </span>
+                    ) : (
+                        <Skeleton className="w-16 h-4 mt-1" />
+                    )}
                 </p>
             </CardContent>
-        </Card>
+        </Card >
     )
 }
