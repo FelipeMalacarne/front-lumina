@@ -32,7 +32,6 @@ const formSchema = z.object({
 
 export default function SingleTransactionCard() {
     const { selectedTransaction, setSelectedTransaction } = useContext(SelectedTransactionContext)
-    const { accounts } = useAccounts()
     const { deleteTransaction, updateTransaction } = useTransactions()
 
     const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
@@ -51,11 +50,7 @@ export default function SingleTransactionCard() {
         setIsEditing(false)
     }, [selectedTransaction])
 
-    if (!selectedTransaction || !accounts) return null;
-
-    const account = accounts.find((account: Account) => account.id === selectedTransaction.account_id)
-
-    if (!account) return null
+    if (!selectedTransaction) return null;
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -269,31 +264,31 @@ export default function SingleTransactionCard() {
                                     <span className="text-muted-foreground">
                                         Identificador
                                     </span>
-                                    <span>{account.id}</span>
+                                    <span>{selectedTransaction.account.id}</span>
                                 </li>
                                 <li className="flex items-center justify-between">
                                     <span className="text-muted-foreground">
                                         Nome
                                     </span>
-                                    <span>{account.name}</span>
+                                    <span>{selectedTransaction.account.name}</span>
                                 </li>
                                 <li className="flex items-center justify-between">
                                     <span className="text-muted-foreground">
                                         Número
                                     </span>
-                                    <span>{account.number}</span>
+                                    <span>{selectedTransaction.account.number}</span>
                                 </li>
                                 <li className="flex items-center justify-between">
                                     <span className="text-muted-foreground">
                                         Dígito Verificador
                                     </span>
-                                    <span>{account.check_digit}</span>
+                                    <span>{selectedTransaction.account.check_digit}</span>
                                 </li>
                                 <li className="flex items-center justify-between">
                                     <span className="text-muted-foreground">
                                         Banco
                                     </span>
-                                    <span>{account.bank_name}</span>
+                                    <span>{selectedTransaction.account.bank_name}</span>
                                 </li>
                             </ul>
                         </div>
