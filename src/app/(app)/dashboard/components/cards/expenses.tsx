@@ -20,7 +20,11 @@ export function ExpensesCard() {
             </CardHeader>
             <CardContent>
                 <div className="text-2xl font-bold">
-                    {data ? formatCurrency(data.monthly_expense / 100) : <Skeleton className="w-24 h-6" />}
+                    {data ? (
+                        formatCurrency(data.monthly_expense / 100)
+                    ) : (
+                        <Skeleton className="w-24 h-6" />
+                    )}
                 </div>
                 <p className="text-xs text-muted-foreground">
                     {data ? (
