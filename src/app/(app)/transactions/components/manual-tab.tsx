@@ -1,4 +1,5 @@
 'use client'
+import Loading from "@/components/loading"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
@@ -43,6 +44,10 @@ export const ManualTab = ({ close }: { close: () => void }) => {
         manualCreate(data)
 
         close()
+    }
+
+    if (!accounts) {
+        return <Loading />
     }
 
     return (
