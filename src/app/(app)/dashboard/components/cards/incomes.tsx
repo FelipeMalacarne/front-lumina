@@ -40,7 +40,7 @@ export function IncomesCard() {
                     {incomes}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                    {percentageChange}  desde o último mês
+                    {percentageChange} desde o último mês
                 </p>
             </CardContent>
         </Card>
