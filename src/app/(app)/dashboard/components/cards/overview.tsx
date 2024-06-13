@@ -19,7 +19,7 @@ const CustomTooltip = ({ active, payload, label }: {
                     <p className="text-sm"> Entradas: </p>
                     <p className="text-sm text-success"> {formatCurrency(payload[0].value)} </p>
                     <p className="text-sm"> Saídas: </p>
-                    <p className="text-sm text-destructive"> {formatCurrency(payload[2].value)} </p>
+                    <p className="text-sm text-destructive"> {formatCurrency(payload[1].value)} </p>
                     <p className="text-sm"> Lucro: </p>
                     <p className={cn("text-sm", payload[2].value >= 0 ? "text-success" : "text-destructive")}>
                         {formatCurrency(payload[2].value)}
