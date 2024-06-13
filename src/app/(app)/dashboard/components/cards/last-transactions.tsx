@@ -16,7 +16,7 @@ export function LastTransactionsCard() {
                 <CardHeader>
                     <CardTitle>Ultimas Transações</CardTitle>
                     <CardDescription>
-                        { data ? (
+                        {data ? (
                             <span>Você fez {data.count} transações esse mês</span>
                         ) : (
                             <Skeleton className="w-24 h-4" />
@@ -24,13 +24,13 @@ export function LastTransactionsCard() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="space-y-8">
+                    <div className="grid grid-cols-1 gap-2">
                         {data ? (
                             data.last_transactions.map((transaction: Transaction) => (
-                                <div key={transaction.id} className="flex items-center">
-                                    <div className="ml-4 space-y-1">
+                                <div key={transaction.id} className="flex items-center p-3 rounded ">
+                                    <div className="ml-2 space-y-1">
                                         <p className="text-sm font-medium leading-none">
-                                            {transaction.memo}
+                                            {transaction.memo ?? (transaction.amount > 0 ? "Entrada sem descrição" : "Saída sem descrição")}
                                         </p>
                                         <p className="text-sm text-muted-foreground">
                                             {transaction.account.bank_name}
