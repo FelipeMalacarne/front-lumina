@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export function AccountList() {
     const { accounts } = useAccounts()
-
+  
     return (
         <div className="flex flex-wrap justify-center md:justify-start gap-4">
             {accounts ? accounts.map(account => (
