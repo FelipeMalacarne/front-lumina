@@ -3,13 +3,14 @@ import axios from "@/lib/axios"
 import { PaginatedResource } from "@/lib/types"
 import { useState } from "react"
 import useSWR from "swr"
+import { Account } from "./accounts"
 
 export interface Transaction {
     id: string
     amount: number
     date_posted: Date
     memo: string
-    account_id: string
+    account: Account
     created_at: Date
     updated_at: Date
 }

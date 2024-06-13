@@ -1,6 +1,10 @@
+'use client'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import useSWR from "swr";
 
 export function TotalBalanceCard() {
+    const { data } = useSWR<{ total_balance: string, percentage_change: string }>('api/dashboard/total-balance')
     return (
         <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -22,10 +26,18 @@ export function TotalBalanceCard() {
             </CardHeader>
             <CardContent>
                 <div className="text-2xl font-bold">
-                    R$45,231.89
+                    {data ? (
+                        data.total_balance
+                    ) : (
+                        <Skeleton className="w-24 h-6" />
+                    )}
                 </div>
                 <p className="text-xs text-muted-foreground">
-                    +20.1%  desde o último mês
+                    {data ? (
+                        <span>{data.percentage_change} desde o último mês </span>
+                    ) : (
+                        <Skeleton className="w-16 h-4 mt-1" />
+                    )}
                 </p>
             </CardContent>
         </Card>

@@ -1,22 +1,20 @@
 'use client'
 import { useAccounts } from "@/hooks/accounts"
 import { AccountCard } from "./account-card"
-import Loading from "@/components/loading"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export function AccountList() {
-    const { accounts, isLoading, error } = useAccounts()
-
-    if (!accounts || isLoading) {
-        return <Loading />
-    }
-
+    const { accounts } = useAccounts()
+  
     return (
         <div className="flex flex-wrap justify-center md:justify-start gap-4">
-            {accounts.map(account => (
+            {accounts ? accounts.map(account => (
                 <div key={account.id}>
                     <AccountCard account={account} />
                 </div>
-            ))}
+            )) : (
+                <Skeleton className="w-80 h-120" />
+            )}
         </div>
     )
 }
