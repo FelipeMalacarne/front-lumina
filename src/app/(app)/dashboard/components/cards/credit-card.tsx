@@ -26,7 +26,7 @@ export function CreditCard() {
                     R$0,00
                 </div>
                 <p className="text-xs text-muted-foreground">
-                    +0.00% from last month
+                    +0.00% desde o ultimo mês
                 </p>
             </CardContent>
         </Card>
